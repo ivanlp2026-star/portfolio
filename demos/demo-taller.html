@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller Mecánico Rueda — Taller en Madrid · Diagnosis y Reparación</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --negro:    #0D0D0D;
+  --gris1:    #141414;
+  --gris2:    #1C1C1C;
+  --gris3:    #252525;
+  --naranja:  #FF6B00;
+  --naranja2: #FF8C33;
+  --rojo:     #E53E3E;
+  --blanco:   #FFFFFF;
+  --texto:    #E8E8E8;
+  --suave:    #888888;
+  --borde:    rgba(255,107,0,0.15);
+  --borde2:   rgba(255,255,255,0.06);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--negro);color:var(--texto);overflow-x:hidden;font-weight:400}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  padding:0 5%;
+  background:rgba(13,13,13,0.97);backdrop-filter:blur(16px);
+  border-bottom:2px solid var(--naranja);
+  display:flex;justify-content:space-between;align-items:stretch;
+}
+.logo-wrap{
+  display:flex;align-items:center;gap:10px;padding:14px 0;
+}
+.logo-icon{
+  width:36px;height:36px;background:var(--naranja);
+  display:flex;align-items:center;justify-content:center;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+}
+.logo-icon svg{width:20px;height:20px}
+.logo{font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--blanco);letter-spacing:2px;text-transform:uppercase;line-height:1}
+.logo span{color:var(--naranja)}
+.nav-cta{
+  background:var(--naranja);color:var(--negro);
+  font-family:'Barlow',sans-serif;font-size:0.75rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:0 22px;border:none;cursor:pointer;transition:background .2s;
+  display:flex;align-items:center;
+}
+.nav-cta:hover{background:var(--naranja2)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--gris1);border:1px solid var(--borde);border-radius:4px;padding:36px 28px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;position:relative;animation:up .3s ease}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--gris3);border:none;width:32px;height:32px;cursor:pointer;font-size:1rem;color:var(--suave);display:flex;align-items:center;justify-content:center;color:var(--blanco)}
+.modal h3{font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;color:var(--blanco);margin-bottom:4px;letter-spacing:1px;text-transform:uppercase}
+.modal-sub{font-size:0.82rem;font-weight:300;color:var(--suave);margin-bottom:28px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:0.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--suave);margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:12px 14px;
+  border:1px solid var(--borde2);border-radius:4px;
+  font-size:0.9rem;font-family:'Barlow',sans-serif;font-weight:400;
+  color:var(--blanco);background:var(--gris2);outline:none;transition:border-color .2s;
+}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--naranja)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-confirmar{
+  width:100%;padding:15px;background:var(--naranja);color:var(--negro);border:none;
+  font-size:0.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;font-family:'Barlow',sans-serif;margin-top:8px;transition:background .2s;
+}
+.btn-confirmar:hover{background:var(--naranja2)}
+.modal-nota{font-size:0.74rem;font-weight:300;color:var(--suave);text-align:center;margin-top:12px;line-height:1.6}
+
+/* URGENCIA BAR */
+.urgencia-bar{
+  background:var(--rojo);padding:9px 5%;
+  display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;text-align:center;
+}
+.urgencia-bar span{color:#fff;font-size:0.8rem;font-weight:600;letter-spacing:0.3px}
+.urgencia-bar a{
+  color:#fff;font-weight:700;background:rgba(255,255,255,0.18);
+  padding:4px 14px;font-size:0.8rem;border-radius:2px;transition:background .2s;
+}
+.urgencia-bar a:hover{background:rgba(255,255,255,0.3)}
+
+/* HERO */
+.hero{
+  background:var(--negro);
+  padding:110px 5% 64px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 50%,rgba(255,107,0,0.07),transparent 60%),
+    repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(255,255,255,0.015) 80px,rgba(255,255,255,0.015) 81px),
+    repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,255,255,0.015) 80px,rgba(255,255,255,0.015) 81px);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(229,62,62,0.12);border:1px solid rgba(229,62,62,0.25);
+  color:#FC8181;font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:6px 14px;margin-bottom:24px;
+}
+.hero-badge::before{content:'●';font-size:.45rem;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(2.6rem,10vw,5.5rem);
+  font-weight:700;color:var(--blanco);
+  line-height:0.95;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.hero h1 span{color:var(--naranja)}
+.hero h1 .sub-titulo{
+  display:block;font-size:clamp(1.2rem,4vw,2rem);
+  font-weight:400;color:var(--suave);letter-spacing:4px;margin-top:4px;
+}
+.hero-desc{
+  font-size:0.93rem;font-weight:300;
+  color:rgba(255,255,255,0.45);line-height:1.75;
+  margin:20px 0 36px;max-width:480px;
+}
+.hero-ctas{display:flex;flex-direction:column;gap:10px}
+.btn-cita{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--naranja);color:var(--negro);
+  padding:16px 32px;font-size:0.8rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;border:none;font-family:'Barlow',sans-serif;
+  transition:all .2s;width:fit-content;
+}
+.btn-cita:hover{background:var(--naranja2);transform:translateX(3px)}
+.btn-llamar{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:transparent;color:rgba(255,255,255,.5);
+  padding:16px 32px;font-size:0.8rem;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.1);
+  font-family:'Barlow',sans-serif;transition:all .2s;width:fit-content;
+}
+.btn-llamar:hover{color:var(--blanco);border-color:rgba(255,255,255,.35)}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:52px;border:1px solid var(--borde2);
+}
+.h-stat{
+  padding:18px 12px;text-align:center;
+  border-right:1px solid var(--borde2);
+}
+.h-stat:last-child{border-right:none}
+.h-stat strong{
+  display:block;font-family:'Rajdhani',sans-serif;
+  font-size:1.6rem;font-weight:700;color:var(--naranja);line-height:1;margin-bottom:3px;
+}
+.h-stat span{font-size:0.65rem;font-weight:400;color:var(--suave);letter-spacing:1.5px;text-transform:uppercase}
+
+/* BASE */
+section{padding:64px 5%}
+.section-gris{background:var(--gris1)}
+.section-gris2{background:var(--gris2)}
+
+.eyebrow{
+  font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--naranja);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--naranja);flex-shrink:0}
+h2{
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;color:var(--blanco);
+  line-height:1.1;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;
+}
+h2 span{color:var(--naranja)}
+.sub{font-size:0.88rem;font-weight:300;color:var(--suave);line-height:1.75;margin-bottom:36px;max-width:520px}
+
+/* SERVICIOS — grid de cards */
+.servicios-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--borde2);border:1px solid var(--borde2);
+}
+.srv-card{
+  background:var(--gris1);padding:24px 20px;
+  transition:background .2s;cursor:default;
+  display:flex;flex-direction:column;gap:10px;
+  position:relative;overflow:hidden;
+}
+.srv-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:3px;height:0;background:var(--naranja);
+  transition:height .3s;
+}
+.srv-card:hover{background:var(--gris2)}
+.srv-card:hover::before{height:100%}
+.srv-num{
+  font-family:'Rajdhani',sans-serif;font-size:2.5rem;font-weight:700;
+  color:rgba(255,107,0,0.1);line-height:1;
+}
+.srv-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--blanco);letter-spacing:0.5px;text-transform:uppercase}
+.srv-desc{font-size:0.8rem;font-weight:300;color:var(--suave);line-height:1.6}
+.srv-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.srv-tag{
+  font-size:0.6rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  background:rgba(255,107,0,0.1);color:var(--naranja);
+  padding:3px 8px;
+}
+
+/* QUIÉNES SOMOS */
+.nosotros-inner{display:flex;flex-direction:column;gap:32px}
+.nosotros-texto h3{
+  font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;
+  color:var(--blanco);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;
+}
+.nosotros-texto p{font-size:0.88rem;font-weight:300;color:var(--suave);line-height:1.8;margin-bottom:12px}
+.valores{display:flex;flex-direction:column;gap:0}
+.valor{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:16px 0;border-bottom:1px solid var(--borde2);
+}
+.valor:last-child{border-bottom:none}
+.valor-n{
+  font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;
+  color:rgba(255,107,0,0.25);line-height:1;flex-shrink:0;width:32px;
+}
+.valor-body h4{font-size:0.9rem;font-weight:700;color:var(--blanco);margin-bottom:4px;letter-spacing:0.3px;text-transform:uppercase}
+.valor-body p{font-size:0.82rem;font-weight:300;color:var(--suave);line-height:1.6}
+
+/* CITA */
+.cita-sec{background:var(--negro)}
+.cita-inner{
+  background:var(--gris1);border:1px solid var(--borde);
+  padding:40px 5%;
+}
+.cita-inner h2{margin-bottom:8px}
+.cita-inner .sub{margin-bottom:28px}
+.cita-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.btn-cita-grande{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--naranja);color:var(--negro);
+  padding:16px 24px;font-size:0.78rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;border:none;font-family:'Barlow',sans-serif;transition:all .2s;
+}
+.btn-cita-grande:hover{background:var(--naranja2)}
+.btn-tel-grande{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:transparent;color:rgba(255,255,255,.5);
+  padding:16px 24px;font-size:0.78rem;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.1);font-family:'Barlow',sans-serif;transition:all .2s;
+}
+.btn-tel-grande:hover{color:var(--blanco);border-color:rgba(255,255,255,.3)}
+.horario{border:1px solid var(--borde2);padding:22px 18px}
+.horario h4{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--naranja);margin-bottom:16px}
+.horario-row{display:flex;justify-content:space-between;font-size:0.84rem;font-weight:400;padding:9px 0;border-bottom:1px solid var(--borde2)}
+.horario-row:last-child{border-bottom:none}
+.dia{color:var(--suave);font-weight:300}
+.hora{color:var(--blanco);font-weight:500}
+.cerrado{color:var(--rojo);font-weight:400}
+.urgente{color:var(--naranja);font-weight:600}
+
+/* TESTIMONIOS */
+.testi-list{display:flex;flex-direction:column;gap:1px;background:var(--borde2)}
+.testi{
+  background:var(--gris1);padding:24px 20px;
+  border-left:3px solid transparent;transition:border-color .2s;
+}
+.testi:hover{border-left-color:var(--naranja)}
+.testi-estrellas{display:flex;gap:3px;margin-bottom:12px}
+.testi-estrella{font-size:0.75rem;color:var(--naranja)}
+.testi-texto{font-size:0.88rem;font-weight:300;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:14px;font-style:italic}
+.testi-autor{display:flex;align-items:center;gap:10px}
+.testi-inicial{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(255,107,0,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--naranja);
+}
+.testi-nombre{font-size:0.88rem;font-weight:600;color:var(--blanco)}
+.testi-ciudad{font-size:0.75rem;font-weight:300;color:var(--suave)}
+.testi-vehiculo{font-size:0.7rem;font-weight:400;color:var(--naranja)}
+
+/* UBICACIÓN */
+.ubicacion{background:var(--gris2)}
+.ubi-datos{display:flex;flex-direction:column;gap:0;margin-top:8px}
+.ubi-row{
+  display:flex;border-bottom:1px solid var(--borde2);
+  align-items:stretch;
+}
+.ubi-row:last-child{border-bottom:none}
+.ubi-key{
+  padding:14px 16px;min-width:100px;flex-shrink:0;
+  background:rgba(255,107,0,0.07);
+  font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--naranja);display:flex;align-items:center;
+  border-right:1px solid var(--borde2);
+}
+.ubi-val{padding:14px 16px;font-size:0.87rem;font-weight:300;color:var(--texto);line-height:1.5;flex:1}
+.ubi-val a{color:var(--naranja)}
+
+/* FOOTER */
+footer{
+  background:var(--negro);border-top:2px solid var(--naranja);
+  padding:28px 5%;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;
+}
+.footer-logo{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase}
+.footer-logo span{color:var(--naranja)}
+footer p{font-size:0.72rem;font-weight:300;color:rgba(255,255,255,.18);letter-spacing:0.5px}
+
+/* WA FLOAT */
+.wa-float{
+  position:fixed;bottom:28px;right:24px;z-index:400;
+  width:52px;height:52px;border-radius:50%;
+  background:#22C55E;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(34,197,94,.4);transition:transform .2s,box-shadow .2s;
+}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(34,197,94,.5)}
+
+/* FADE */
+.fi{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.fi.v{opacity:1;transform:none}
+
+@media(min-width:768px){
+  .hero-ctas{flex-direction:row}
+  .servicios-grid{grid-template-columns:repeat(3,1fr)}
+  .nosotros-inner{flex-direction:row;gap:60px;align-items:start}
+  .nosotros-texto{flex:1}
+  .nosotros-valores-wrap{flex:1}
+  .cita-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .cita-btns{margin-bottom:0}
+  .testi-list{display:grid;grid-template-columns:repeat(2,1fr)}
+  footer{flex-direction:row;justify-content:space-between}
+}
+</style>
+</head>
+<body>
+
+<!-- MODAL CITA -->
+<div class="modal-overlay" id="modalCita">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <h3>Solicitar cita</h3>
+    <p class="modal-sub">Rellena los datos y te confirmamos la cita en menos de 1 hora.</p>
+    <div class="form-group"><label>Nombre</label><input type="text" id="c-nombre" placeholder="Tu nombre completo"></div>
+    <div class="form-group"><label>Teléfono</label><input type="tel" id="c-tel" placeholder="600 000 000"></div>
+    <div class="form-group"><label>Vehículo (marca y modelo)</label><input type="text" id="c-vehiculo" placeholder="Ej: Volkswagen Golf 2018"></div>
+    <div class="form-group"><label>Servicio</label>
+      <select id="c-servicio">
+        <option value="">Seleccionar servicio</option>
+        <optgroup label="Mantenimiento"><option>Cambio de aceite y filtros</option><option>Revisión general</option><option>Cambio de neumáticos</option></optgroup>
+        <optgroup label="Frenos y dirección"><option>Revisión de frenos</option><option>Cambio de pastillas</option><option>Dirección y suspensión</option></optgroup>
+        <optgroup label="Diagnosis y electrónica"><option>Diagnosis electrónica</option><option>Reprogramación ECU / DPF</option><option>Electricidad del vehículo</option></optgroup>
+        <optgroup label="Servicios especiales"><option>Pre-ITV</option><option>Solución AdBlue</option><option>Aire acondicionado</option><option>Cambio de correa de distribución</option></optgroup>
+        <optgroup label="Otro"><option>Consulta / Presupuesto</option></optgroup>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Fecha</label><input type="date" id="c-fecha"></div>
+      <div class="form-group"><label>Hora preferida</label>
+        <select id="c-hora">
+          <option value="">Seleccionar</option>
+          <option>08:00</option><option>08:30</option><option>09:00</option><option>09:30</option>
+          <option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option>
+          <option>12:00</option><option>16:00</option><option>16:30</option><option>17:00</option>
+          <option>17:30</option><option>18:00</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Descripción del problema (opcional)</label><textarea id="c-notas" placeholder="Describe brevemente la avería o lo que necesitas..."></textarea></div>
+    <button class="btn-confirmar" onclick="enviarCita()">Confirmar cita por WhatsApp</button>
+    <p class="modal-nota">Se abrirá WhatsApp con todos los datos. Confirmamos en menos de 1 hora.</p>
+  </div>
+</div>
+
+<!-- URGENCIA -->
+<div class="urgencia-bar">
+  <span>Avería en carretera o urgencia mecánica</span>
+  <a href="tel:+34910123456">Llamar ahora · 910 123 456</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-wrap">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </div>
+    <div class="logo">Taller <span>Rueda</span></div>
+  </div>
+  <button class="nav-cta" onclick="abrirModal()">Pedir cita</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content fi">
+    <div class="hero-badge">Taller de confianza · Madrid</div>
+    <h1>
+      Tu coche,<br>
+      <span>en buenas</span><br>
+      manos.
+      <span class="sub-titulo">Diagnóstico · Reparación · Mantenimiento</span>
+    </h1>
+    <p class="hero-desc">Taller mecánico multimarca con más de 20 años de experiencia. Diagnosis computarizada, presupuesto sin compromiso y vehículo de sustitución disponible.</p>
+    <div class="hero-ctas">
+      <button class="btn-cita" onclick="abrirModal()">Pedir cita ahora</button>
+      <a href="tel:+34910123456" class="btn-llamar">Llamar · 910 123 456</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><strong>20+</strong><span>años de experiencia</span></div>
+      <div class="h-stat"><strong>+1.200</strong><span>clientes atendidos</span></div>
+      <div class="h-stat"><strong>100%</strong><span>multimarca</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section class="section-gris">
+  <div class="fi">
+    <div class="eyebrow">Lo que hacemos</div>
+    <h2>Nuestros <span>servicios</span></h2>
+    <p class="sub">Taller multimarca equipado con las últimas herramientas de diagnosis. Todos los servicios incluyen revisión previa sin coste.</p>
+  </div>
+  <div class="servicios-grid fi">
+    <div class="srv-card">
+      <div class="srv-num">01</div>
+      <div class="srv-title">Pre-ITV</div>
+      <div class="srv-desc">Revisión completa antes de pasar la ITV para evitar suspensos. Comprobamos todos los puntos del protocolo oficial.</div>
+      <div class="srv-tags"><span class="srv-tag">Recomendado</span></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">02</div>
+      <div class="srv-title">Soluciones AdBlue</div>
+      <div class="srv-desc">Reparación y solución de problemas con el sistema AdBlue. Emuladores homologados y sustitución del depósito.</div>
+      <div class="srv-tags"><span class="srv-tag">Especialistas</span></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">03</div>
+      <div class="srv-title">Reprogramación ECU / DPF</div>
+      <div class="srv-desc">Reprogramación de centralitas y eliminación de filtros DPF / FAP. Mejora de potencia y consumo.</div>
+      <div class="srv-tags"><span class="srv-tag">Especialistas</span></div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">04</div>
+      <div class="srv-title">Diagnosis electrónica</div>
+      <div class="srv-desc">Lectura y borrado de códigos de error con equipos de última generación. Compatible con todas las marcas.</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">05</div>
+      <div class="srv-title">Frenos y suspensión</div>
+      <div class="srv-desc">Cambio de pastillas, discos, amortiguadores y revisión completa del sistema de frenado.</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">06</div>
+      <div class="srv-title">Cambio de aceite y filtros</div>
+      <div class="srv-desc">Mantenimiento preventivo con aceites homologados. Cambio de filtro de aceite, aire, habitáculo y combustible.</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">07</div>
+      <div class="srv-title">Correa de distribución</div>
+      <div class="srv-desc">Sustitución de la correa de distribución según kilómetros o tiempo del fabricante. Kit completo incluido.</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">08</div>
+      <div class="srv-title">Aire acondicionado</div>
+      <div class="srv-desc">Carga de gas, limpieza del sistema evaporador, detección de fugas y sustitución de componentes.</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">09</div>
+      <div class="srv-title">Electricidad y averías</div>
+      <div class="srv-desc">Reparación de averías eléctricas, luces, batería, alternador y arranque. Diagnosis completa incluida.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIÉNES SOMOS -->
+<section class="section-gris2">
+  <div class="nosotros-inner fi">
+    <div class="nosotros-texto">
+      <div class="eyebrow">Quiénes somos</div>
+      <h2>Más de 20 años<br><span>de experiencia</span></h2>
+      <p>Taller Rueda nació en 2004 con un objetivo claro: ofrecer un servicio mecánico honesto, rápido y de calidad. Hoy somos el taller de referencia para cientos de familias en Madrid.</p>
+      <p>Trabajamos con todas las marcas y modelos, desde utilitarios hasta vehículos de alta gama. Nuestro equipo se forma continuamente para estar al día de las últimas tecnologías.</p>
+    </div>
+    <div class="nosotros-valores-wrap">
+      <div class="valores">
+        <div class="valor"><div class="valor-n">I</div><div class="valor-body"><h4>Presupuesto gratuito</h4><p>Revisamos tu vehículo y te damos un presupuesto detallado antes de empezar. Sin sorpresas.</p></div></div>
+        <div class="valor"><div class="valor-n">II</div><div class="valor-body"><h4>Garantía de 2 años</h4><p>Todos nuestros trabajos tienen garantía de 2 años en piezas y mano de obra.</p></div></div>
+        <div class="valor"><div class="valor-n">III</div><div class="valor-body"><h4>Vehículo de sustitución</h4><p>Si tu coche necesita varios días de taller, te facilitamos un vehículo de sustitución sin coste.</p></div></div>
+        <div class="valor"><div class="valor-n">IV</div><div class="valor-body"><h4>Recogida y entrega</h4><p>Recogemos tu vehículo en tu domicilio o trabajo y te lo devolvemos una vez reparado.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CITA PREVIA -->
+<section class="cita-sec">
+  <div class="cita-inner fi">
+    <div>
+      <div class="eyebrow">Reserva</div>
+      <h2>Pide tu <span>cita</span></h2>
+      <p class="sub">Reserva online en menos de un minuto. También por teléfono o WhatsApp.</p>
+      <div class="cita-btns">
+        <button class="btn-cita-grande" onclick="abrirModal()">Solicitar cita ahora</button>
+        <a href="tel:+34910123456" class="btn-tel-grande">Llamar · 910 123 456</a>
+      </div>
+    </div>
+    <div class="horario">
+      <h4>Horario del taller</h4>
+      <div class="horario-row"><span class="dia">Lunes — Viernes</span><span class="hora">08:00 – 19:00</span></div>
+      <div class="horario-row"><span class="dia">Sábados</span><span class="hora">09:00 – 14:00</span></div>
+      <div class="horario-row"><span class="dia">Domingos</span><span class="hora cerrado">Cerrado</span></div>
+      <div class="horario-row"><span class="dia">Urgencias</span><span class="hora urgente">24h · 910 123 456</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section-gris">
+  <div class="fi">
+    <div class="eyebrow">Opiniones</div>
+    <h2>Lo que dicen<br><span>nuestros clientes</span></h2>
+  </div>
+  <div class="testi-list fi">
+    <div class="testi">
+      <div class="testi-estrellas">
+        <span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span>
+      </div>
+      <p class="testi-texto">"Llevé el coche para la pre-ITV y detectaron tres cosas que no sabía. Me lo explicaron todo con detalle, el presupuesto fue justo y pasé la ITV sin ningún problema."</p>
+      <div class="testi-autor">
+        <div class="testi-inicial">JM</div>
+        <div><div class="testi-nombre">José Martínez</div><div class="testi-vehiculo">Seat León 2016</div><div class="testi-ciudad">Madrid · Hace 2 semanas</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-estrellas">
+        <span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span>
+      </div>
+      <p class="testi-texto">"Tuve un problema con el AdBlue en plena autopista. Me atendieron por teléfono, me orientaron y al día siguiente me solucionaron el problema. Precio muy razonable."</p>
+      <div class="testi-autor">
+        <div class="testi-inicial">PG</div>
+        <div><div class="testi-nombre">Pedro González</div><div class="testi-vehiculo">Mercedes Clase C 2019</div><div class="testi-ciudad">Madrid · Hace 1 mes</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-estrellas">
+        <span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span>
+      </div>
+      <p class="testi-texto">"Mi taller de siempre. Llevan mi coche desde hace 6 años. Siempre honestos con el diagnóstico y el precio. Nunca me han metido mano en algo que no era necesario."</p>
+      <div class="testi-autor">
+        <div class="testi-inicial">MR</div>
+        <div><div class="testi-nombre">María Romero</div><div class="testi-vehiculo">Toyota Corolla 2017</div><div class="testi-ciudad">Madrid · Hace 3 semanas</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-estrellas">
+        <span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span><span class="testi-estrella">★</span>
+      </div>
+      <p class="testi-texto">"Vinieron a recoger el coche a mi trabajo y me lo entregaron en casa al día siguiente. Un lujo de servicio. La reparación quedó perfecta."</p>
+      <div class="testi-autor">
+        <div class="testi-inicial">AL</div>
+        <div><div class="testi-nombre">Antonio López</div><div class="testi-vehiculo">BMW Serie 3 2020</div><div class="testi-ciudad">Madrid · Hace 1 semana</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section class="ubicacion">
+  <div class="fi">
+    <div class="eyebrow">Dónde estamos</div>
+    <h2>Encuéntranos</h2>
+  </div>
+  <div class="ubi-datos fi">
+    <div class="ubi-row"><span class="ubi-key">Dirección</span><span class="ubi-val">Calle de la Industria 14, Madrid — Polígono Industrial de Vallecas</span></div>
+    <div class="ubi-row"><span class="ubi-key">Teléfono</span><span class="ubi-val"><a href="tel:+34910123456">910 123 456</a> · Urgencias 24h disponibles</span></div>
+    <div class="ubi-row"><span class="ubi-key">WhatsApp</span><span class="ubi-val"><a href="https://wa.me/34910123456" target="_blank">Escribir por WhatsApp</a></span></div>
+    <div class="ubi-row"><span class="ubi-key">Cómo llegar</span><span class="ubi-val">Metro Vallecas (L1) — Bus líneas 24, 57 y 131 — Amplio parking gratuito</span></div>
+    <div class="ubi-row"><span class="ubi-key">Servicios</span><span class="ubi-val">Vehículo de sustitución · Recogida y entrega a domicilio · Factura oficial</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Taller <span>Rueda</span></div>
+  <p>© 2026 Taller Rueda · Mecánica multimarca · Madrid</p>
+</footer>
+
+<!-- WA FLOAT REDONDO -->
+<a href="https://wa.me/34910123456?text=Hola,%20me%20gustaría%20pedir%20cita%20en%20el%20taller" target="_blank" class="wa-float">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function abrirModal(){
+  document.getElementById('modalCita').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('c-fecha').min=new Date().toISOString().split('T')[0];
+}
+function cerrarModal(){
+  document.getElementById('modalCita').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modalCita').addEventListener('click',function(e){if(e.target===this)cerrarModal()});
+function enviarCita(){
+  var n=document.getElementById('c-nombre').value.trim();
+  var t=document.getElementById('c-tel').value.trim();
+  var v=document.getElementById('c-vehiculo').value.trim();
+  var s=document.getElementById('c-servicio').value;
+  var f=document.getElementById('c-fecha').value;
+  var h=document.getElementById('c-hora').value;
+  var o=document.getElementById('c-notas').value.trim();
+  if(!n||!t||!s||!f||!h){alert('Por favor rellena todos los campos obligatorios.');return;}
+  var fd=new Date(f+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var msg='Solicitud de cita — Taller Rueda\n\nNombre: '+n+'\nTeléfono: '+t+(v?'\nVehículo: '+v:'')+'\nServicio: '+s+'\nFecha: '+fd+'\nHora: '+h+(o?'\nDescripción: '+o:'')+'\n\nGracias.';
+  window.open('https://wa.me/34910123456?text='+encodeURIComponent(msg),'_blank');
+  cerrarModal();
+}
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:0.06});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

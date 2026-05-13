@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudio Elisa — Peluquería & Estética Madrid</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --negro:  #0A0A0A;
+  --rosa:   #E8B4A0;
+  --rosa2:  #D4917A;
+  --rosa3:  #C4705A;
+  --arena:  #F5EDE6;
+  --crema:  #FAF7F4;
+  --blanco: #FFFFFF;
+  --texto:  #1A1A1A;
+  --suave:  #888078;
+  --borde:  #E8DDD5;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto);overflow-x:hidden;font-weight:300}
+a{text-decoration:none;color:inherit}
+
+/* NAV — blanco limpio */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  padding:20px 6%;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(250,247,244,0.96);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--borde);
+}
+.logo{
+  font-family:'Bodoni Moda',serif;
+  font-size:1.2rem;font-weight:400;color:var(--negro);letter-spacing:1px;
+}
+.logo em{color:var(--rosa3);font-style:italic}
+.nav-cta{
+  background:var(--negro);color:var(--blanco);
+  font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:400;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:10px 22px;border-radius:50px;cursor:pointer;border:none;transition:all .25s;
+}
+.nav-cta:hover{background:var(--rosa3)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,10,10,0.6);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--blanco);border-radius:16px;padding:40px 32px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;position:relative;animation:up .3s ease}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--crema);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;color:var(--suave);display:flex;align-items:center;justify-content:center}
+.modal h3{font-family:'Bodoni Moda',serif;font-size:1.7rem;font-weight:400;color:var(--texto);margin-bottom:4px}
+.modal-sub{font-size:0.82rem;font-weight:300;color:var(--suave);margin-bottom:28px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.72rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--suave);margin-bottom:7px}
+.form-group input,.form-group select{width:100%;padding:13px 16px;border:1.5px solid var(--borde);border-radius:10px;font-size:0.9rem;font-family:'DM Sans',sans-serif;font-weight:300;color:var(--texto);background:var(--crema);outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus{border-color:var(--rosa3);background:var(--blanco)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-confirmar{width:100%;padding:15px;background:var(--negro);color:var(--blanco);border:none;border-radius:50px;font-size:0.78rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:10px;transition:all .25s}
+.btn-confirmar:hover{background:var(--rosa3)}
+.modal-nota{font-size:0.74rem;font-weight:300;color:var(--suave);text-align:center;margin-top:14px;line-height:1.6}
+
+/* HERO — editorial, blanco, tipografía protagonista */
+.hero{
+  background:var(--crema);
+  padding:110px 6% 0;
+  position:relative;overflow:hidden;
+  min-height:80vw;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.hero-top{position:relative;z-index:2;padding-bottom:40px}
+.hero-tag{
+  font-size:0.68rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;
+  color:var(--suave);margin-bottom:20px;
+}
+.hero h1{
+  font-family:'Bodoni Moda',serif;
+  font-size:clamp(3rem,12vw,7rem);
+  font-weight:400;color:var(--negro);
+  line-height:0.95;letter-spacing:-2px;
+  margin-bottom:0;
+}
+.hero h1 .italic{font-style:italic;color:var(--rosa3)}
+.hero h1 .outline{
+  color:transparent;
+  -webkit-text-stroke:1px var(--negro);
+  display:block;
+}
+.hero-bottom{
+  background:var(--negro);
+  margin:0 -6%;padding:24px 6%;
+  display:flex;flex-direction:column;gap:16px;
+  position:relative;z-index:2;
+}
+.hero-desc{font-size:0.88rem;font-weight:300;color:rgba(255,255,255,0.45);line-height:1.75;max-width:380px}
+.hero-ctas{display:flex;flex-direction:column;gap:10px}
+.btn-hero-claro{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--rosa);color:var(--negro);
+  padding:14px 28px;border-radius:50px;
+  font-size:0.75rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;width:fit-content;
+}
+.btn-hero-claro:hover{background:var(--rosa2)}
+.btn-hero-ghost{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:transparent;color:rgba(255,255,255,0.5);
+  padding:14px 28px;border-radius:50px;
+  font-size:0.75rem;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,0.15);font-family:'DM Sans',sans-serif;transition:all .25s;width:fit-content;
+}
+.btn-hero-ghost:hover{color:var(--blanco);border-color:rgba(255,255,255,0.4)}
+
+/* STATS — horizontal scroll en móvil */
+.stats{
+  display:flex;overflow-x:auto;scrollbar-width:none;
+  border-bottom:1px solid var(--borde);
+  background:var(--blanco);
+}
+.stats::-webkit-scrollbar{display:none}
+.stat{
+  flex:0 0 auto;min-width:140px;
+  padding:24px 20px;text-align:center;
+  border-right:1px solid var(--borde);
+}
+.stat strong{
+  display:block;font-family:'Bodoni Moda',serif;
+  font-size:1.6rem;font-weight:400;color:var(--negro);line-height:1;margin-bottom:4px;
+}
+.stat span{font-size:0.65rem;font-weight:400;color:var(--suave);text-transform:uppercase;letter-spacing:1.5px}
+
+/* BASE */
+section{padding:64px 6%}
+.section-white{background:var(--blanco)}
+.section-arena{background:var(--arena)}
+.section-negro{background:var(--negro)}
+
+.eyebrow{
+  font-size:0.65rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;
+  color:var(--rosa3);margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:'';display:block;width:18px;height:1px;background:var(--rosa3);flex-shrink:0}
+
+h2{
+  font-family:'Bodoni Moda',serif;
+  font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;
+  color:var(--texto);line-height:1.2;margin-bottom:12px;
+}
+h2 em{color:var(--rosa3);font-style:italic}
+.sub{font-size:0.87rem;font-weight:300;color:var(--suave);line-height:1.85;margin-bottom:36px;max-width:460px}
+
+/* NOSOTROS — cards horizontales */
+.nosotros-cards{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.nosotros-card{
+  background:var(--crema);border-radius:14px;padding:22px 20px;
+  display:flex;gap:16px;align-items:flex-start;
+  border:1px solid var(--borde);transition:all .25s;
+}
+.nosotros-card:hover{background:var(--blanco);border-color:var(--rosa)}
+.nc-num{
+  font-family:'Bodoni Moda',serif;font-size:2rem;font-weight:400;
+  color:var(--rosa);line-height:1;flex-shrink:0;opacity:0.5;
+}
+.nc-body h4{font-size:0.93rem;font-weight:500;color:var(--texto);margin-bottom:4px}
+.nc-body p{font-size:0.82rem;font-weight:300;color:var(--suave);line-height:1.65}
+
+/* SERVICIOS — grid estilo moda */
+.servicios-grid{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--borde)}
+.servicio{
+  padding:20px 0;border-bottom:1px solid var(--borde);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  transition:all .25s;cursor:default;
+}
+.servicio:hover{padding-left:8px}
+.srv-left h4{font-size:0.95rem;font-weight:400;color:var(--negro);margin-bottom:3px}
+.srv-left p{font-size:0.8rem;font-weight:300;color:var(--suave);line-height:1.5}
+.srv-precio{
+  font-family:'Bodoni Moda',serif;
+  font-size:1.1rem;font-weight:400;color:var(--rosa3);white-space:nowrap;flex-shrink:0;
+}
+.srv-tag{
+  font-size:0.6rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;
+  background:var(--arena);color:var(--suave);padding:3px 8px;border-radius:20px;
+  margin-top:5px;display:inline-block;
+}
+.srv-tag.popular{background:rgba(196,112,90,0.1);color:var(--rosa3)}
+
+/* CITA SECTION */
+.cita-inner{
+  background:var(--negro);border-radius:16px;padding:48px 6%;
+  position:relative;overflow:hidden;
+}
+.cita-inner::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,180,160,0.08),transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.cita-inner h2{color:var(--blanco)}
+.cita-inner .sub{color:rgba(255,255,255,.35)}
+.cita-inner .eyebrow{color:var(--rosa)}
+.cita-inner .eyebrow::before{background:var(--rosa)}
+.cita-btns{display:flex;flex-direction:column;gap:10px;position:relative;z-index:2}
+.cita-inner>*{position:relative;z-index:1}
+.btn-cita-main{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--rosa);color:var(--negro);
+  padding:16px 28px;border-radius:50px;
+  font-size:0.78rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;
+}
+.btn-cita-main:hover{background:var(--rosa2)}
+.btn-cita-tel{
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;color:rgba(255,255,255,.45);
+  padding:16px 28px;border-radius:50px;
+  font-size:0.78rem;font-weight:300;letter-spacing:1px;
+  border:1px solid rgba(255,255,255,.1);font-family:'DM Sans',sans-serif;transition:all .25s;
+}
+.btn-cita-tel:hover{color:var(--blanco);border-color:rgba(255,255,255,.3)}
+.horario{
+  background:rgba(255,255,255,.04);border:1px solid rgba(232,180,160,.15);
+  border-radius:12px;padding:22px 20px;margin-top:24px;
+  position:relative;z-index:2;
+}
+.horario h4{font-size:0.65rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:16px}
+.horario-row{display:flex;justify-content:space-between;font-size:0.84rem;font-weight:300;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.horario-row:last-child{border-bottom:none}
+.dia{color:rgba(255,255,255,.35)}
+.hora{color:rgba(255,255,255,.7);font-weight:400}
+.cerrado{color:#E07070;font-weight:300}
+
+/* TESTIMONIOS — tarjetas redondeadas */
+.testi-list{display:flex;flex-direction:column;gap:14px}
+.testi{
+  background:var(--blanco);border-radius:16px;padding:24px 20px;
+  border:1px solid var(--borde);transition:border-color .25s;
+}
+.testi:hover{border-color:var(--rosa)}
+.testi-puntos{display:flex;gap:4px;margin-bottom:12px}
+.testi-puntos span{width:6px;height:6px;background:var(--rosa2);border-radius:50%}
+.testi-texto{
+  font-family:'Bodoni Moda',serif;
+  font-size:0.97rem;font-weight:400;font-style:italic;
+  color:var(--texto);line-height:1.7;margin-bottom:16px;
+}
+.testi-autor{display:flex;align-items:center;gap:10px}
+.testi-inicial{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:var(--arena);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bodoni Moda',serif;font-size:0.9rem;color:var(--rosa3);
+}
+.testi-nombre{font-size:0.85rem;font-weight:500;color:var(--texto)}
+.testi-ciudad{font-size:0.75rem;font-weight:300;color:var(--suave)}
+
+/* INFORMACIÓN */
+.info-grid{display:flex;flex-direction:column;gap:0;border-radius:12px;overflow:hidden;border:1px solid var(--borde)}
+.info-row{
+  display:flex;gap:0;border-bottom:1px solid var(--borde);
+}
+.info-row:last-child{border-bottom:none}
+.info-key{
+  padding:16px 18px;min-width:90px;flex-shrink:0;
+  background:var(--arena);
+  font-size:0.68rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--rosa3);
+  display:flex;align-items:center;
+  border-right:1px solid var(--borde);
+}
+.info-val{padding:16px 18px;font-size:0.87rem;font-weight:300;color:var(--texto);line-height:1.5;flex:1}
+
+/* FOOTER */
+footer{
+  background:var(--negro);
+  padding:32px 6%;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;
+}
+.footer-logo{font-family:'Bodoni Moda',serif;font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.4);letter-spacing:1px}
+.footer-logo em{color:var(--rosa);font-style:italic}
+footer p{font-size:0.72rem;font-weight:300;color:rgba(255,255,255,.15);letter-spacing:0.5px}
+
+/* WA FLOAT REDONDO */
+.wa-float{
+  position:fixed;bottom:28px;right:24px;z-index:400;
+  width:52px;height:52px;border-radius:50%;
+  background:#22C55E;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(34,197,94,.4);transition:transform .2s,box-shadow .2s;
+}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(34,197,94,.5)}
+
+/* FADE */
+.fi{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.fi.v{opacity:1;transform:none}
+
+@media(min-width:768px){
+  .hero{min-height:auto;padding-bottom:0}
+  .hero-bottom{flex-direction:row;justify-content:space-between;align-items:center}
+  .hero-ctas{flex-direction:row}
+  .nosotros-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .servicios-grid{grid-template-columns:1fr 1fr;gap:0 40px}
+  .cita-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .cita-inner-left{grid-column:1;position:relative;z-index:2}
+  .cita-inner-right{grid-column:2;position:relative;z-index:2}
+  .testi-list{display:grid;grid-template-columns:repeat(2,1fr)}
+  footer{flex-direction:row;justify-content:space-between}
+}
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalCita">
+  <div class="modal">
+    <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <h3>Reservar cita</h3>
+    <p class="modal-sub">Rellena el formulario y te confirmamos en minutos.</p>
+    <div class="form-group"><label>Nombre</label><input type="text" id="cita-nombre" placeholder="Tu nombre completo"></div>
+    <div class="form-group"><label>Teléfono</label><input type="tel" id="cita-tel" placeholder="600 000 000"></div>
+    <div class="form-group"><label>Servicio</label>
+      <select id="cita-servicio">
+        <option value="">Seleccionar servicio</option>
+        <optgroup label="Corte"><option>Corte de cabello</option><option>Corte y peinado</option></optgroup>
+        <optgroup label="Color"><option>Tinte completo</option><option>Mechas o balayage</option><option>Retoque de raíz</option></optgroup>
+        <optgroup label="Tratamientos"><option>Tratamiento hidratante</option><option>Keratina</option><option>Alisado</option></optgroup>
+        <optgroup label="Especial"><option>Peinado de boda o evento</option><option>Consulta sin compromiso</option></optgroup>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Fecha</label><input type="date" id="cita-fecha"></div>
+      <div class="form-group"><label>Hora</label>
+        <select id="cita-hora">
+          <option value="">Hora</option>
+          <option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option>
+          <option>11:00</option><option>11:30</option><option>12:00</option><option>12:30</option>
+          <option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option>
+          <option>18:00</option><option>18:30</option><option>19:00</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Observaciones</label><input type="text" id="cita-notas" placeholder="Tipo de cabello, referencia, alergias..."></div>
+    <button class="btn-confirmar" onclick="enviarCita()">Confirmar por WhatsApp</button>
+    <p class="modal-nota">Se abrirá WhatsApp con tus datos. Respondemos en menos de 1 hora.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Estudio <em>Elisa</em></div>
+  <button class="nav-cta" onclick="abrirModal()">Pedir cita</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top fi">
+    <div class="hero-tag">Peluquería · Estética · Madrid · Desde 2010</div>
+    <h1>
+      Tu mejor<br>
+      <span class="italic">versión</span><br>
+      <span class="outline">empieza aquí.</span>
+    </h1>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">Estudio especializado en corte, color y tratamientos capilares. Atención personalizada y resultados que hablan por sí solos.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero-claro" onclick="abrirModal()">Pedir cita</button>
+      <a href="tel:+34912345678" class="btn-hero-ghost">912 345 678</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><strong>15+</strong><span>años de experiencia</span></div>
+  <div class="stat"><strong>800+</strong><span>clientas de confianza</span></div>
+  <div class="stat"><strong>4.9</strong><span>valoración Google</span></div>
+  <div class="stat"><strong>100%</strong><span>cita previa</span></div>
+</div>
+
+<!-- NOSOTROS -->
+<section class="section-white">
+  <div class="nosotros-inner fi">
+    <div>
+      <div class="eyebrow">El estudio</div>
+      <h2>Más que cortar,<br><em>transformar</em></h2>
+      <p class="sub">Desde 2010 ayudamos a cada clienta a encontrar su mejor imagen. Escuchamos, asesoramos y ejecutamos con precisión.</p>
+    </div>
+    <div class="nosotros-cards">
+      <div class="nosotros-card"><div class="nc-num">01</div><div class="nc-body"><h4>Escucha activa</h4><p>Antes de cortar, entendemos tu estilo de vida, tus gustos y lo que quieres conseguir.</p></div></div>
+      <div class="nosotros-card"><div class="nc-num">02</div><div class="nc-body"><h4>Productos profesionales</h4><p>Solo utilizamos marcas que cuidan y respetan el cabello a largo plazo.</p></div></div>
+      <div class="nosotros-card"><div class="nc-num">03</div><div class="nc-body"><h4>Resultados duraderos</h4><p>El efecto no dura solo ese día. Trabajamos para que dure semanas.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="section-arena">
+  <div class="fi">
+    <div class="eyebrow">Lo que hacemos</div>
+    <h2>Servicios</h2>
+    <p class="sub">Todos los servicios incluyen asesoramiento personalizado sin coste adicional.</p>
+  </div>
+  <div class="servicios-grid fi">
+    <div class="servicio">
+      <div class="srv-left"><h4>Corte de cabello</h4><p>Personalizado según forma de cara y estilo</p><span class="srv-tag popular">Más solicitado</span></div>
+      <span class="srv-precio">desde 25 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Corte y peinado</h4><p>Con secador, plancha o rizador</p></div>
+      <span class="srv-precio">desde 40 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Tinte completo</h4><p>Con productos sin amoniaco</p><span class="srv-tag popular">Más solicitado</span></div>
+      <span class="srv-precio">desde 55 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Mechas y balayage</h4><p>Iluminación natural y personalizada</p></div>
+      <span class="srv-precio">desde 70 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Retoque de raíz</h4><p>Para mantener tu tono perfecto</p></div>
+      <span class="srv-precio">desde 35 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Tratamiento hidratante</h4><p>Mascarilla de nutrición y brillo</p></div>
+      <span class="srv-precio">desde 30 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Keratina y alisado</h4><p>Tratamiento alisador sin formol</p></div>
+      <span class="srv-precio">desde 90 €</span>
+    </div>
+    <div class="servicio">
+      <div class="srv-left"><h4>Peinado especial</h4><p>Bodas, comuniones y eventos</p><span class="srv-tag">Previa consulta</span></div>
+      <span class="srv-precio">desde 45 €</span>
+    </div>
+  </div>
+</section>
+
+<!-- CITA -->
+<section class="section-white">
+  <div class="cita-inner fi">
+    <div class="cita-inner-left">
+      <div class="eyebrow">Reserva</div>
+      <h2>¿Cuándo<br><em>te vemos?</em></h2>
+      <p class="sub" style="color:rgba(255,255,255,.32)">Reserva tu cita en segundos. Confirmamos en menos de una hora.</p>
+      <div class="cita-btns">
+        <button class="btn-cita-main" onclick="abrirModal()">Reservar cita ahora</button>
+        <a href="tel:+34912345678" class="btn-cita-tel">Llamar · 912 345 678</a>
+      </div>
+    </div>
+    <div class="cita-inner-right">
+      <div class="horario">
+        <h4>Horario del estudio</h4>
+        <div class="horario-row"><span class="dia">Lunes — Viernes</span><span class="hora">09:00 – 20:00</span></div>
+        <div class="horario-row"><span class="dia">Sábados</span><span class="hora">09:00 – 15:00</span></div>
+        <div class="horario-row"><span class="dia">Domingos</span><span class="hora cerrado">Cerrado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section-arena">
+  <div class="fi">
+    <div class="eyebrow">Clientas</div>
+    <h2>Lo que nos<br><em>cuentan</em></h2>
+  </div>
+  <div class="testi-list fi">
+    <div class="testi">
+      <div class="testi-puntos"><span></span><span></span><span></span><span></span><span></span></div>
+      <p class="testi-texto">"Llevo cinco años viniendo y nunca me ha fallado. Elisa me conoce mejor que yo misma. El balayage que me hizo la última vez fue exactamente lo que buscaba."</p>
+      <div class="testi-autor"><div class="testi-inicial">S</div><div><div class="testi-nombre">Sara Moreno</div><div class="testi-ciudad">Madrid · Hace 2 semanas</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-puntos"><span></span><span></span><span></span><span></span><span></span></div>
+      <p class="testi-texto">"El peinado de mi boda fue perfecto. Aguantó todo el día. Todo el equipo fue muy profesional y me hicieron sentir muy cómoda desde el primer momento."</p>
+      <div class="testi-autor"><div class="testi-inicial">A</div><div><div class="testi-nombre">Ana Gutiérrez</div><div class="testi-ciudad">Madrid · Hace 1 mes</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-puntos"><span></span><span></span><span></span><span></span><span></span></div>
+      <p class="testi-texto">"Probé muchas peluquerías antes de encontrar esta. La atención es excelente, el precio muy razonable y el resultado siempre supera mis expectativas."</p>
+      <div class="testi-autor"><div class="testi-inicial">C</div><div><div class="testi-nombre">Carmen Vidal</div><div class="testi-ciudad">Madrid · Hace 3 semanas</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="section-white">
+  <div class="fi">
+    <div class="eyebrow">Dónde estamos</div>
+    <h2>Encuéntranos</h2>
+  </div>
+  <div class="info-grid fi">
+    <div class="info-row"><span class="info-key">Dirección</span><span class="info-val">Calle Serrano 88, Madrid — Metro Serrano (Línea 4)</span></div>
+    <div class="info-row"><span class="info-key">Teléfono</span><span class="info-val"><a href="tel:+34912345678" style="color:var(--rosa3)">912 345 678</a> · También por WhatsApp</span></div>
+    <div class="info-row"><span class="info-key">Parking</span><span class="info-val">Parking público en Calle Ortega y Gasset</span></div>
+    <div class="info-row"><span class="info-key">Pago</span><span class="info-val">Tarjeta, efectivo y Bizum</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Estudio <em>Elisa</em></div>
+  <p>© 2026 Estudio Elisa · Peluquería y Estética · Madrid</p>
+</footer>
+
+<!-- WA REDONDO -->
+<a href="https://wa.me/34912345678?text=Hola,%20me%20gustaría%20pedir%20una%20cita%20en%20Estudio%20Elisa" target="_blank" class="wa-float">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function abrirModal(){
+  document.getElementById('modalCita').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('cita-fecha').min=new Date().toISOString().split('T')[0];
+}
+function cerrarModal(){
+  document.getElementById('modalCita').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modalCita').addEventListener('click',function(e){if(e.target===this)cerrarModal()});
+function enviarCita(){
+  var n=document.getElementById('cita-nombre').value.trim();
+  var t=document.getElementById('cita-tel').value.trim();
+  var s=document.getElementById('cita-servicio').value;
+  var f=document.getElementById('cita-fecha').value;
+  var h=document.getElementById('cita-hora').value;
+  var o=document.getElementById('cita-notas').value.trim();
+  if(!n||!t||!s||!f||!h){alert('Por favor rellena todos los campos obligatorios.');return;}
+  var fd=new Date(f+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var msg='Reserva de cita — Estudio Elisa\n\nNombre: '+n+'\nTeléfono: '+t+'\nServicio: '+s+'\nFecha: '+fd+'\nHora: '+h+(o?'\nObservaciones: '+o:'')+'\n\nGracias.';
+  window.open('https://wa.me/34912345678?text='+encodeURIComponent(msg),'_blank');
+  cerrarModal();
+}
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:0.08});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
