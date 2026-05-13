@@ -3,150 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitrina Web — Agencia de diseño web para negocios locales</title>
+<title>Vitrina Design — Diseño web para negocios locales</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --negro:    #080C12;
-  --negro2:   #0D1420;
-  --azul:     #0F1E35;
-  --oro:      #C8923A;
-  --oro2:     #E8B86D;
-  --crema:    #F5EDD8;
+:root{
+  --negro:    #0A0A0A;
+  --negro2:   #111111;
+  --negro3:   #181818;
+  --oro:      #C4962A;
+  --oro2:     #D4AE6A;
+  --oro3:     #E8CFA0;
   --blanco:   #FFFFFF;
-  --suave:    #7A8A9E;
-  --borde:    rgba(200,146,58,0.15);
+  --gris:     #F8F7F5;
+  --borde:    rgba(196,150,42,0.15);
+  --borde2:   rgba(255,255,255,0.06);
+  --texto:    #E8E4DC;
+  --suave:    rgba(255,255,255,0.35);
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth}
 body{
-  font-family:'Outfit',sans-serif;
-  background:var(--negro);
-  color:var(--blanco);
-  overflow-x:hidden;
+  font-family:'Montserrat',sans-serif;
+  background:var(--negro);color:var(--texto);
+  overflow-x:hidden;font-weight:300;
   cursor:none;
 }
 a{text-decoration:none;color:inherit}
-img{display:block;width:100%;object-fit:cover}
 
-/* ── CURSOR ── */
-.cursor{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--oro);position:fixed;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform .1s,width .3s,height .3s,background .3s;
-}
-.cursor-ring{
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(200,146,58,0.5);
-  position:fixed;pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform .15s ease-out,width .3s,height .3s;
-}
-body:hover .cursor{opacity:1}
+/* CURSOR */
+.cur{width:6px;height:6px;background:var(--oro);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.cur-r{width:32px;height:32px;border:1px solid rgba(196,150,42,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease-out}
+body a:hover~.cur,body button:hover~.cur{width:12px;height:12px}
 
-/* ── NAV ── */
+/* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
-  padding:22px 6%;
+  padding:24px 7%;
   display:flex;justify-content:space-between;align-items:center;
   transition:all .4s;
 }
 nav.scrolled{
-  background:rgba(8,12,18,0.95);
+  background:rgba(10,10,10,0.97);
   backdrop-filter:blur(20px);
-  padding:16px 6%;
+  padding:16px 7%;
   border-bottom:1px solid var(--borde);
 }
-.logo{
-  font-family:'Cinzel',serif;
-  font-size:1.1rem;font-weight:600;
-  letter-spacing:3px;text-transform:uppercase;
-  color:var(--blanco);
+
+/* LOGO SVG inline */
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:28px;height:28px}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1}
+.nav-logo-v{
+  font-family:'Cormorant',serif;font-size:1.1rem;font-weight:500;
+  color:var(--blanco);letter-spacing:5px;text-transform:uppercase;
 }
-.logo em{color:var(--oro);font-style:normal}
+.nav-logo-d{
+  font-family:'Montserrat',sans-serif;font-size:0.48rem;font-weight:400;
+  color:rgba(255,255,255,0.4);letter-spacing:4px;text-transform:uppercase;
+  margin-top:1px;
+}
+
 .nav-links{display:none}
 .nav-cta{
-  font-size:0.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:500;
+  letter-spacing:2.5px;text-transform:uppercase;
   color:var(--oro);border:1px solid var(--borde);
-  padding:10px 22px;border-radius:2px;
-  transition:all .3s;
-  font-family:'Outfit',sans-serif;
+  padding:10px 24px;transition:all .3s;background:transparent;cursor:pointer;
 }
 .nav-cta:hover{background:var(--oro);color:var(--negro)}
 
-/* ── HERO ── */
+/* HERO */
 .hero{
-  display:flex;flex-direction:column;
-  justify-content:center;
-  padding:100px 6% 52px;
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;padding:120px 7% 80px;
   position:relative;overflow:hidden;
 }
-
-/* fondo animado */
 .hero-bg{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,146,58,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(15,30,53,0.8) 0%, transparent 70%),
-    var(--negro);
+    radial-gradient(ellipse 80% 60% at 60% 30%,rgba(196,150,42,0.05) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 70% at 10% 80%,rgba(196,150,42,0.03) 0%,transparent 60%);
 }
-.hero-bg::before{
-  content:'';position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&q=70&fit=crop') center/cover;
-  opacity:0.06;
-}
-/* grid lines */
 .hero-grid{
   position:absolute;inset:0;
   background-image:
-    linear-gradient(rgba(200,146,58,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200,146,58,0.04) 1px, transparent 1px);
-  background-size:60px 60px;
+    linear-gradient(rgba(196,150,42,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(196,150,42,0.03) 1px,transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;
+}
+/* Logo grande decorativo */
+.hero-logo-deco{
+  position:absolute;right:-5%;top:50%;transform:translateY(-50%);
+  width:55vw;max-width:480px;opacity:0.03;
+  pointer-events:none;
 }
 
-.hero-content{position:relative;z-index:2;max-width:800px;padding-left:2px}
+.hero-content{position:relative;z-index:2}
 
 .hero-eyebrow{
-  display:inline-flex;align-items:center;gap:12px;
-  font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:4px;
-  text-transform:uppercase;color:var(--oro);
-  margin-bottom:20px;
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:0.6rem;font-weight:500;letter-spacing:5px;text-transform:uppercase;
+  color:var(--oro);margin-bottom:36px;
   opacity:0;animation:fadeUp .8s .2s forwards;
 }
-.hero-eyebrow::before,.hero-eyebrow::after{
-  content:'';display:block;height:1px;background:var(--oro);opacity:0.5;
-}
-.hero-eyebrow::before{width:40px}
-.hero-eyebrow::after{width:20px}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--oro);opacity:0.6}
+.hero-eyebrow::after{content:'';display:block;width:16px;height:1px;background:var(--oro);opacity:0.3}
 
 .hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,10vw,7rem);
-  font-weight:900;line-height:0.95;
-  letter-spacing:-2px;
-  margin-bottom:20px;
-  opacity:0;animation:fadeUp .8s .4s forwards;
+  font-family:'Cormorant',serif;
+  font-size:clamp(3.2rem,10vw,7.5rem);
+  font-weight:300;line-height:0.95;
+  letter-spacing:-1px;
+  margin-bottom:36px;
+  opacity:0;animation:fadeUp .9s .4s forwards;
 }
-.hero h1 .line2{
-  font-style:italic;color:transparent;
-  -webkit-text-stroke:1px var(--oro2);
-  display:block;
-}
-.hero h1 .line3{
-  display:block;font-size:clamp(2rem,6vw,4.5rem);
-  font-weight:400;color:var(--suave);font-style:italic;
-  letter-spacing:0;
+.hero h1 .l1{display:block;color:var(--blanco)}
+.hero h1 .l2{display:block;font-style:italic;color:var(--oro2)}
+.hero h1 .l3{
+  display:block;color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,0.2);
+  font-style:italic;
 }
 
 .hero-desc{
-  font-size:1rem;color:rgba(255,255,255,0.45);
-  line-height:1.8;max-width:500px;
-  margin-bottom:32px;
-  font-weight:300;
+  font-size:0.85rem;font-weight:300;
+  color:var(--suave);line-height:2;
+  max-width:460px;margin-bottom:52px;
+  letter-spacing:0.3px;
   opacity:0;animation:fadeUp .8s .6s forwards;
 }
 
@@ -154,503 +139,467 @@ nav.scrolled{
   display:flex;flex-direction:column;gap:14px;
   opacity:0;animation:fadeUp .8s .8s forwards;
 }
-.btn-primario{
+.btn-oro{
   display:inline-flex;align-items:center;gap:12px;
   background:var(--oro);color:var(--negro);
-  padding:18px 36px;font-size:0.85rem;font-weight:600;
-  letter-spacing:1.5px;text-transform:uppercase;
-  border-radius:2px;transition:all .3s;
-  font-family:'Outfit',sans-serif;border:none;cursor:pointer;
-  width:fit-content;
+  padding:16px 36px;font-size:0.68rem;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  border:none;cursor:pointer;font-family:'Montserrat',sans-serif;
+  transition:all .3s;width:fit-content;
 }
-.btn-primario:hover{background:var(--oro2);transform:translateX(4px)}
-.btn-primario .arrow{transition:transform .3s}
-.btn-primario:hover .arrow{transform:translateX(4px)}
-.btn-secundario{
+.btn-oro:hover{background:var(--oro2);transform:translateX(4px)}
+.btn-outline{
   display:inline-flex;align-items:center;gap:10px;
-  color:rgba(255,255,255,0.5);font-size:0.82rem;
-  font-weight:400;letter-spacing:0.5px;
-  transition:color .3s;width:fit-content;
-  background:none;border:none;cursor:pointer;
-  font-family:'Outfit',sans-serif;
+  background:transparent;color:var(--suave);
+  padding:16px 36px;font-size:0.68rem;font-weight:400;
+  letter-spacing:2px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;font-family:'Montserrat',sans-serif;
+  transition:all .3s;width:fit-content;
 }
-.btn-secundario:hover{color:var(--blanco)}
-.btn-secundario::before{
-  content:'';display:block;width:30px;height:1px;
-  background:currentColor;transition:width .3s;
-}
-.btn-secundario:hover::before{width:50px}
+.btn-outline:hover{color:var(--blanco);border-color:rgba(255,255,255,0.25)}
+.btn-outline::before{content:'';display:block;width:20px;height:1px;background:currentColor;transition:width .3s}
+.btn-outline:hover::before{width:36px}
 
-/* número grande decorativo */
-.hero-num{display:none}
-
-/* scroll indicator */
-.scroll-hint{display:none}
-
-/* STATS STRIP */
+/* STATS */
 .stats{
   display:grid;grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--borde);
-  border-bottom:1px solid var(--borde);
-  background:var(--negro2);
+  border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);
 }
-.stat-item{
-  padding:28px 6%;text-align:center;
+.stat{
+  padding:28px 5%;text-align:center;
   border-right:1px solid var(--borde);
-  position:relative;overflow:hidden;
+  position:relative;transition:background .3s;
 }
-.stat-item::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(200,146,58,0.03),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.stat-item:hover::before{opacity:1}
-.stat-item:last-child{border-right:none}
+.stat:hover{background:rgba(196,150,42,0.03)}
+.stat:last-child{border-right:none}
 .stat-num{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;
-  color:var(--oro);line-height:1;margin-bottom:6px;
-  display:block;
+  font-family:'Cormorant',serif;
+  font-size:clamp(1.8rem,4vw,2.6rem);font-weight:300;
+  color:var(--oro);line-height:1;margin-bottom:6px;display:block;
 }
-.stat-label{font-size:0.68rem;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase}
+.stat-label{font-size:0.6rem;font-weight:400;color:var(--suave);letter-spacing:2.5px;text-transform:uppercase}
 
-/* ── SECCIONES ── */
-.section{padding:64px 6%}
-.section-dark{background:var(--negro2)}
-.section-darker{background:var(--negro)}
-
-/* ── FEATURES STRIP ── */
-.features-strip{
-  border-top:1px solid var(--borde);
-  border-bottom:1px solid var(--borde);
-  background:var(--negro);
-  padding:32px 6%;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-.features-texto{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.1rem,3vw,1.5rem);
-  font-weight:400;
-  color:rgba(255,255,255,0.75);
-  line-height:1.6;
-  max-width:700px;
-}
-.features-texto em{color:var(--oro);font-style:italic}
-.features-lista{
-  display:flex;flex-direction:column;gap:8px;
-}
-.features-lista span{
-  font-size:0.82rem;color:rgba(255,255,255,0.32);
-  font-weight:300;letter-spacing:0.3px;
-  display:flex;align-items:center;gap:10px;
-}
-.features-lista span::before{
-  content:'';display:block;width:16px;height:1px;
-  background:var(--oro);opacity:0.5;flex-shrink:0;
-}
+/* SECCIONES */
+.section{padding:100px 7%}
+.section-alt{background:var(--negro2)}
 
 .label{
-  font-family:'Cinzel',serif;
-  font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;
-  color:var(--oro);margin-bottom:16px;
-  display:flex;align-items:center;gap:10px;
+  font-family:'Cormorant',serif;
+  font-size:0.68rem;font-weight:400;letter-spacing:4px;text-transform:uppercase;
+  color:var(--oro);margin-bottom:18px;
+  display:flex;align-items:center;gap:12px;
 }
-.label::before{content:'';display:block;width:30px;height:1px;background:var(--oro);flex-shrink:0}
+.label::before{content:'';display:block;width:24px;height:1px;background:var(--oro);flex-shrink:0}
 
 h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
-  line-height:1.15;margin-bottom:16px;
-  letter-spacing:-0.5px;
+  font-family:'Cormorant',serif;
+  font-size:clamp(2.2rem,5vw,3.8rem);font-weight:300;
+  color:var(--blanco);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;
 }
-h2 em{color:var(--oro);font-style:italic}
+h2 em{color:var(--oro2);font-style:italic}
 .section-desc{
-  font-size:0.95rem;color:rgba(255,255,255,0.4);
-  line-height:1.8;max-width:500px;margin-bottom:36px;font-weight:300;
+  font-size:0.83rem;font-weight:300;color:var(--suave);
+  line-height:2;max-width:480px;margin-bottom:56px;letter-spacing:0.2px;
 }
 
-/* ── PROCESO ── */
+/* FEATURES */
+.features{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--borde2);
+  border:1px solid var(--borde2);
+}
+.feature{
+  background:var(--negro);padding:32px 28px;
+  transition:background .3s;
+}
+.feature:hover{background:rgba(196,150,42,0.03)}
+.feature-num{
+  font-family:'Cormorant',serif;font-size:0.8rem;font-weight:300;
+  color:rgba(196,150,42,0.3);letter-spacing:2px;margin-bottom:14px;
+}
+.feature h3{
+  font-family:'Cormorant',serif;font-size:1.1rem;font-weight:400;
+  color:var(--blanco);margin-bottom:8px;letter-spacing:0.3px;
+}
+.feature p{font-size:0.78rem;font-weight:300;color:var(--suave);line-height:1.85}
+
+/* PROCESO */
 .pasos{display:flex;flex-direction:column}
 .paso{
-  display:flex;gap:24px;padding:32px 0;
-  border-bottom:1px solid var(--borde);
-  transition:all .3s;
+  display:flex;gap:28px;padding:32px 0;
+  border-bottom:1px solid var(--borde2);
+  transition:padding-left .3s;
 }
 .paso:last-child{border-bottom:none}
-.paso:hover{padding-left:8px}
+.paso:hover{padding-left:6px}
 .paso-n{
-  font-family:'Playfair Display',serif;
-  font-size:3rem;font-weight:900;color:transparent;
-  -webkit-text-stroke:1px rgba(200,146,58,0.2);
-  line-height:1;flex-shrink:0;width:60px;
-  transition:color .3s,-webkit-text-stroke .3s;
+  font-family:'Cormorant',serif;
+  font-size:3.5rem;font-weight:300;color:transparent;
+  -webkit-text-stroke:1px rgba(196,150,42,0.15);
+  line-height:1;flex-shrink:0;width:70px;
+  transition:all .3s;
 }
 .paso:hover .paso-n{color:var(--oro);-webkit-text-stroke:1px var(--oro)}
-.paso-body{padding-top:8px}
-.paso-body h3{font-size:1rem;font-weight:600;margin-bottom:8px;letter-spacing:0.3px}
-.paso-body p{font-size:0.87rem;color:rgba(255,255,255,0.38);line-height:1.7;font-weight:300}
-
-/* ── PORTFOLIO ── */
-.portfolio-grid{
-  display:flex;flex-direction:column;gap:2px;
+.paso-body{padding-top:10px}
+.paso-body h3{
+  font-family:'Cormorant',serif;font-size:1.2rem;font-weight:400;
+  color:var(--blanco);margin-bottom:8px;letter-spacing:0.5px;
 }
-.portfolio-item{
-  display:flex;align-items:stretch;
-  border:1px solid var(--borde);
-  border-radius:4px;overflow:hidden;
-  transition:all .3s;
+.paso-body p{font-size:0.8rem;font-weight:300;color:var(--suave);line-height:1.9}
+
+/* PORTFOLIO */
+.port-grid{display:flex;flex-direction:column;gap:1px;background:var(--borde2)}
+.port-item{
+  background:var(--negro2);padding:28px 24px;
+  display:flex;align-items:center;gap:20px;
   text-decoration:none;color:inherit;
+  transition:all .3s;border-left:2px solid transparent;
 }
-.portfolio-item:hover{border-color:var(--oro);background:rgba(200,146,58,0.03)}
-.portfolio-item:hover .port-arrow{transform:translateX(4px)}
-.port-color{width:4px;flex-shrink:0;transition:width .3s}
-.portfolio-item:hover .port-color{width:6px}
-.port-color.c1{background:linear-gradient(180deg,#0F1E35,#1E3A5F)}
-.port-color.c2{background:linear-gradient(180deg,#6B1A1A,#B03030)}
-.port-color.c3{background:linear-gradient(180deg,#2D1B4B,#7B4FA0)}
-.port-color.c4{background:linear-gradient(180deg,#0B3D2E,#1C7A5A)}
-.port-info{padding:22px 20px;flex:1}
-.port-tag{font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--oro);margin-bottom:5px;font-family:'Cinzel',serif}
-.port-info h3{font-size:0.97rem;font-weight:600;margin-bottom:4px;color:rgba(255,255,255,0.9)}
-.port-info p{font-size:0.8rem;color:rgba(255,255,255,0.3);font-weight:300}
+.port-item:hover{background:rgba(196,150,42,0.04);border-left-color:var(--oro)}
+.port-item:hover .port-arrow{transform:translateX(6px);color:var(--oro)}
+.port-accent{width:3px;align-self:stretch;flex-shrink:0}
+.port-accent.c1{background:linear-gradient(180deg,#0F1E35,#1E3A5F)}
+.port-accent.c2{background:linear-gradient(180deg,#3D1200,#8B3010)}
+.port-accent.c3{background:linear-gradient(180deg,#2D1B3D,#7B4FA0)}
+.port-accent.c4{background:linear-gradient(180deg,#0A1A0A,#1A5A1A)}
+.port-info{flex:1}
+.port-tag{font-size:0.58rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--oro);margin-bottom:5px}
+.port-info h3{font-family:'Cormorant',serif;font-size:1.1rem;font-weight:400;color:var(--blanco);margin-bottom:4px}
+.port-info p{font-size:0.76rem;font-weight:300;color:var(--suave);line-height:1.5}
 .port-status{
-  font-size:0.6rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;
-  padding:3px 8px;border-radius:2px;margin-top:10px;display:inline-block;
+  font-size:0.56rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 10px;margin-top:8px;display:inline-block;
 }
-.port-status.live{background:rgba(74,222,128,0.1);color:#4ADE80;border:1px solid rgba(74,222,128,0.2)}
-.port-status.soon{background:rgba(200,146,58,0.1);color:var(--oro);border:1px solid var(--borde)}
-.port-arrow{
-  flex-shrink:0;display:flex;align-items:center;
-  padding-right:20px;color:rgba(255,255,255,0.15);
-  font-size:1.4rem;transition:all .3s;
-}
-.portfolio-item:hover .port-arrow{color:var(--oro)}
+.port-status.live{color:#4ADE80;border:1px solid rgba(74,222,128,0.2);background:rgba(74,222,128,0.05)}
+.port-status.soon{color:var(--oro);border:1px solid var(--borde);background:rgba(196,150,42,0.05)}
+.port-arrow{color:rgba(255,255,255,0.1);font-size:1.5rem;transition:all .3s;flex-shrink:0}
 
-/* ── PRECIOS ── */
-.precios-grid{display:flex;flex-direction:column;gap:16px}
+/* PRECIOS */
+.precios-grid{display:flex;flex-direction:column;gap:1px;background:var(--borde2)}
 .precio-card{
-  border:1px solid var(--borde);border-radius:4px;
-  padding:36px 28px;position:relative;
-  background:rgba(255,255,255,0.02);
-  transition:all .3s;
+  background:var(--negro2);padding:40px 32px;
+  position:relative;transition:background .3s;
 }
-.precio-card:hover{border-color:rgba(200,146,58,0.4);background:rgba(200,146,58,0.03)}
-.precio-card.featured{
-  background:var(--oro);border-color:var(--oro);
+.precio-card:hover{background:rgba(196,150,42,0.03)}
+.precio-card.feat{background:var(--oro);border:none}
+.precio-card.feat:hover{background:var(--oro2)}
+.precio-badge{
+  position:absolute;top:24px;right:24px;
+  font-size:0.55rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  border:1px solid var(--borde);color:var(--oro);padding:4px 12px;
 }
-.precio-card.featured:hover{background:var(--oro2);border-color:var(--oro2)}
-.feat-badge{
-  position:absolute;top:-12px;left:28px;
-  font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:2px;
-  text-transform:uppercase;background:var(--negro);color:var(--oro);
-  padding:4px 12px;border:1px solid var(--borde);border-radius:2px;
+.precio-card.feat .precio-badge{background:rgba(10,10,10,0.2);border-color:transparent;color:var(--negro)}
+.precio-plan{font-size:0.6rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--suave);margin-bottom:16px}
+.precio-card.feat .precio-plan{color:rgba(10,10,10,0.55)}
+.precio-num{font-family:'Cormorant',serif;font-size:4rem;font-weight:300;color:var(--blanco);line-height:1;margin-bottom:4px}
+.precio-card.feat .precio-num{color:var(--negro)}
+.precio-nota{font-size:0.72rem;font-weight:300;color:var(--suave);margin-bottom:32px}
+.precio-card.feat .precio-nota{color:rgba(10,10,10,0.5)}
+.precio-lista{list-style:none;margin-bottom:36px}
+.precio-lista li{
+  font-size:0.8rem;font-weight:300;color:var(--suave);
+  padding:10px 0;border-bottom:1px solid var(--borde2);
+  display:flex;gap:12px;align-items:flex-start;line-height:1.5;
 }
-.precio-card.featured .feat-badge{background:var(--negro);color:var(--oro)}
-.precio-plan{font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
-.precio-card.featured .precio-plan{color:rgba(8,12,18,0.6)}
-.precio-num{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:var(--blanco);line-height:1;margin-bottom:4px}
-.precio-card.featured .precio-num{color:var(--negro)}
-.precio-nota{font-size:0.75rem;color:rgba(255,255,255,0.3);margin-bottom:28px}
-.precio-card.featured .precio-nota{color:rgba(8,12,18,0.5)}
-.precio-lista{list-style:none;margin-bottom:32px}
-.precio-lista li{font-size:0.87rem;color:rgba(255,255,255,0.6);padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:10px;font-weight:300}
-.precio-card.featured .precio-lista li{color:rgba(8,12,18,0.75);border-color:rgba(8,12,18,0.08)}
-.precio-lista li::before{content:'—';color:var(--oro);flex-shrink:0;font-weight:400}
-.precio-card.featured .precio-lista li::before{color:var(--negro)}
+.precio-lista li::before{content:'—';color:var(--oro);flex-shrink:0;font-family:'Cormorant',serif}
+.precio-card.feat .precio-lista li{color:rgba(10,10,10,0.65);border-color:rgba(10,10,10,0.08)}
+.precio-card.feat .precio-lista li::before{color:var(--negro)}
 .btn-precio{
   display:block;text-align:center;padding:14px;
-  font-size:0.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  border-radius:2px;transition:all .3s;font-family:'Outfit',sans-serif;
-  border:1px solid var(--borde);color:rgba(255,255,255,0.6);
-  cursor:pointer;background:none;width:100%;
+  font-size:0.65rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;
+  border:1px solid var(--borde);color:var(--suave);
+  cursor:pointer;background:none;width:100%;font-family:'Montserrat',sans-serif;
+  transition:all .3s;
 }
 .btn-precio:hover{border-color:var(--oro);color:var(--oro)}
-.btn-precio-dark{
+.btn-precio-inv{
   display:block;text-align:center;padding:14px;
-  font-size:0.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  border-radius:2px;transition:all .3s;font-family:'Outfit',sans-serif;
+  font-size:0.65rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
   background:var(--negro);color:var(--blanco);border:none;
-  cursor:pointer;width:100%;
+  cursor:pointer;width:100%;font-family:'Montserrat',sans-serif;transition:all .3s;
 }
-.btn-precio-dark:hover{background:var(--negro2)}
+.btn-precio-inv:hover{background:var(--negro2)}
 
-/* ── CONTACTO ── */
-.contacto-inner{
-  border:1px solid var(--borde);border-radius:4px;
-  padding:56px 6%;
-  background:
-    radial-gradient(ellipse 60% 80% at 80% 50%,rgba(200,146,58,0.05),transparent),
-    var(--negro2);
+/* CONTACTO */
+.contacto-box{
+  border:1px solid var(--borde);padding:60px 7%;
   position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--negro2),var(--negro));
 }
-.contacto-inner::before{
-  content:'';position:absolute;top:-100px;right:-100px;
-  width:400px;height:400px;border-radius:50%;
-  border:80px solid rgba(200,146,58,0.03);
+.contacto-box::before{
+  content:'';position:absolute;bottom:-100px;right:-100px;
+  width:300px;height:300px;border-radius:50%;
+  border:60px solid rgba(196,150,42,0.04);pointer-events:none;
 }
-.contacto-inner h2{margin-bottom:12px}
-.contacto-desc{font-size:0.93rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:40px;font-weight:300;max-width:480px}
+.contacto-box h2{margin-bottom:12px}
+.contacto-desc{font-size:0.82rem;font-weight:300;color:var(--suave);line-height:2;margin-bottom:40px;max-width:500px}
 .contacto-btns{display:flex;flex-direction:column;gap:12px}
-.btn-wa-grande{
+.btn-wa{
   display:flex;align-items:center;justify-content:center;gap:12px;
   background:#22C55E;color:var(--blanco);
-  padding:18px 28px;border-radius:2px;
-  font-size:0.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;
-  transition:all .3s;font-family:'Outfit',sans-serif;
+  padding:17px 32px;font-size:0.68rem;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  transition:all .3s;font-family:'Montserrat',sans-serif;
 }
-.btn-wa-grande:hover{background:#16a34a;transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,0.3)}
-.btn-email-grande{
+.btn-wa:hover{background:#16a34a;transform:translateY(-2px);box-shadow:0 8px 32px rgba(34,197,94,0.25)}
+.btn-email{
   display:flex;align-items:center;justify-content:center;gap:10px;
-  background:transparent;color:rgba(255,255,255,0.4);
-  padding:18px 28px;border-radius:2px;
-  font-size:0.85rem;font-weight:400;
-  border:1px solid rgba(255,255,255,0.08);
-  transition:all .3s;font-family:'Outfit',sans-serif;
+  background:transparent;color:var(--suave);
+  padding:17px 32px;font-size:0.68rem;font-weight:400;
+  letter-spacing:1.5px;
+  border:1px solid rgba(255,255,255,0.07);
+  transition:all .3s;font-family:'Montserrat',sans-serif;
 }
-.btn-email-grande:hover{border-color:var(--borde);color:rgba(255,255,255,0.7)}
+.btn-email:hover{color:var(--blanco);border-color:rgba(255,255,255,0.2)}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer{
-  padding:32px 6%;
+  padding:36px 7%;
   border-top:1px solid var(--borde);
-  background:var(--negro);
-  display:flex;flex-direction:column;gap:10px;
+  display:flex;flex-direction:column;gap:8px;
   align-items:center;text-align:center;
 }
-.footer-logo{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6)}
-.footer-logo em{color:var(--oro);font-style:normal}
-footer p{font-size:0.72rem;color:rgba(255,255,255,0.18);letter-spacing:0.5px}
+footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-spacing:1px}
 
-/* ── WA FLOAT ── */
+/* WA FLOAT */
 .wa-float{
   position:fixed;bottom:28px;right:24px;z-index:400;
   width:52px;height:52px;border-radius:50%;
-  background:#22C55E;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 24px rgba(34,197,94,0.4);
-  transition:transform .2s,box-shadow .2s;
+  background:#22C55E;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px rgba(34,197,94,0.4);transition:transform .2s,box-shadow .2s;
 }
-.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(34,197,94,0.5)}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(34,197,94,0.5)}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-.fi{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+/* ANIM */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.fi{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .fi.v{opacity:1;transform:none}
-.fi-d1{transition-delay:.1s}
-.fi-d2{transition-delay:.2s}
-.fi-d3{transition-delay:.3s}
+.fi.d1{transition-delay:.1s}
+.fi.d2{transition-delay:.2s}
+.fi.d3{transition-delay:.3s}
 
-/* ── DESKTOP ── */
+/* DESKTOP */
 @media(min-width:768px){
-  .nav-links{display:flex;gap:36px;align-items:center}
-  .nav-links a{font-size:0.78rem;color:rgba(255,255,255,0.45);letter-spacing:0.5px;transition:color .2s}
+  .nav-links{
+    display:flex;gap:40px;align-items:center;
+  }
+  .nav-links a{font-size:0.62rem;font-weight:400;color:var(--suave);letter-spacing:2px;text-transform:uppercase;transition:color .2s}
   .nav-links a:hover{color:var(--blanco)}
-  .hero h1{font-size:clamp(4rem,8vw,7rem)}
   .hero-ctas{flex-direction:row;align-items:center}
-  .features-strip{flex-direction:row;align-items:center;gap:60px}
-  .features-texto{flex:1;margin-bottom:0}
-  .features-lista{flex:1}
-  .pasos{display:grid;grid-template-columns:repeat(2,1fr);gap:0 60px}
-  .precios-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+  .features{grid-template-columns:repeat(4,1fr)}
+  .pasos{display:grid;grid-template-columns:repeat(2,1fr);gap:0 80px}
+  .precios-grid{flex-direction:row}
+  .precio-card{flex:1}
   .contacto-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-  .contacto-inner h2{grid-column:1;margin-bottom:12px}
-  .contacto-desc{margin-bottom:0;grid-column:1}
-  .contacto-btns{grid-column:2;grid-row:1/3;justify-content:center}
+  .contacto-btns{max-width:280px}
+  .port-grid{display:grid;grid-template-columns:repeat(2,1fr)}
   footer{flex-direction:row;justify-content:space-between}
-  .portfolio-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 }
 
 @media(min-width:1024px){
-  .hero{padding:0 8% 100px}
-  .section{padding:120px 8%}
-  footer{padding:32px 8%}
   nav{padding:28px 8%}
   nav.scrolled{padding:18px 8%}
+  .hero,.section{padding-left:8%;padding-right:8%}
+  .contacto-box{padding:70px 8%}
+  footer{padding:36px 8%}
 }
 </style>
 </head>
 <body>
 
 <!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="logo">Vitrina<em>Web</em></div>
+  <div class="nav-logo">
+    <!-- Logo mark SVG inspirado en el logo -->
+    <svg class="nav-logo-mark" viewBox="0 0 40 40" fill="none">
+      <circle cx="22" cy="20" r="10" stroke="#C4962A" stroke-width="1"/>
+      <line x1="8" y1="16" x2="22" y2="24" stroke="#C4962A" stroke-width="1" stroke-linecap="round"/>
+      <line x1="8" y1="21" x2="22" y2="18" stroke="#C4962A" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="nav-logo-v">Vitrina</span>
+      <span class="nav-logo-d">Design</span>
+    </div>
+  </div>
   <div class="nav-links">
     <a href="#proceso">Proceso</a>
     <a href="#portfolio">Portfolio</a>
     <a href="#precios">Precios</a>
   </div>
-  <a href="#contacto" class="nav-cta">Contactar</a>
+  <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Contactar</button>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <!-- Logo decorativo grande -->
+  <svg class="hero-logo-deco" viewBox="0 0 200 200" fill="none">
+    <circle cx="120" cy="100" r="60" stroke="white" stroke-width="1"/>
+    <line x1="30" y1="80" x2="120" y2="120" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="30" y1="108" x2="120" y2="88" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+
   <div class="hero-content">
-    <div class="hero-eyebrow">Agencia de diseño web · España</div>
+    <div class="hero-eyebrow">Diseño web · España</div>
     <h1>
-      Tu negocio
-      <span class="line2">visible.</span>
-      <span class="line3">online. hoy.</span>
+      <span class="l1">Tu negocio,</span>
+      <span class="l2">visible</span>
+      <span class="l3">online.</span>
     </h1>
-    <p class="hero-desc">Diseñamos páginas web profesionales para negocios locales. Dominio propio, diseño a medida y entrega en 7 días.</p>
+    <p class="hero-desc">Creamos páginas web de alta calidad para negocios locales. Diseño exclusivo, dominio propio y entrega en 1 a 3 días.</p>
     <div class="hero-ctas">
-      <button class="btn-primario" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">
-        Ver ejemplos <span class="arrow">→</span>
+      <button class="btn-oro" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">
+        Ver ejemplos →
       </button>
-      <button class="btn-secundario" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+      <button class="btn-outline" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
         Pedir presupuesto
       </button>
     </div>
   </div>
-  <div class="hero-num">VW</div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
 </section>
-
-<!-- FEATURES -->
-<div class="features-strip fi">
-  <p class="features-texto">
-    Creamos páginas web para negocios locales que <em>generan confianza</em>, atraen clientes y se ven perfectas en cualquier dispositivo.
-  </p>
-  <div class="features-lista">
-    <span>Diseño profesional adaptado a tu sector</span>
-    <span>Dominio .es y hosting incluidos en el precio</span>
-    <span>Entrega en 1 a 3 días, sin complicaciones</span>
-    <span>Sin cuotas mensuales ni letra pequeña</span>
-  </div>
-</div>
 
 <!-- STATS -->
 <div class="stats">
-  <div class="stat-item fi">
-    <span class="stat-num">1 a 3</span>
-    <span class="stat-label">días de entrega</span>
-  </div>
-  <div class="stat-item fi fi-d1">
-    <span class="stat-num">desde 290€</span>
-    <span class="stat-label">precio único</span>
-  </div>
-  <div class="stat-item fi fi-d2">
-    <span class="stat-num">+150</span>
-    <span class="stat-label">clientes satisfechos</span>
-  </div>
+  <div class="stat fi"><span class="stat-num">1 — 3</span><span class="stat-label">días de entrega</span></div>
+  <div class="stat fi d1"><span class="stat-num">desde 290€</span><span class="stat-label">precio único</span></div>
+  <div class="stat fi d2"><span class="stat-num">+150</span><span class="stat-label">clientes satisfechos</span></div>
 </div>
 
+<!-- FEATURES -->
+<section class="section section-alt">
+  <div class="fi">
+    <div class="label">Por qué elegirnos</div>
+    <h2>Creamos páginas web que<br><em>generan confianza.</em></h2>
+    <p class="section-desc">Diseño a medida, sin plantillas genéricas. Cada web es un proyecto único adaptado al sector y a la identidad del negocio.</p>
+  </div>
+  <div class="features fi">
+    <div class="feature">
+      <div class="feature-num">01</div>
+      <h3>Diseño a medida</h3>
+      <p>Cada web es única. Nunca usamos plantillas genéricas. Tu negocio merece una identidad propia.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">02</div>
+      <h3>Dominio + hosting</h3>
+      <p>Todo incluido en el precio. Sin cuotas mensuales ni costes ocultos después de la entrega.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">03</div>
+      <h3>Perfecta en móvil</h3>
+      <p>Más del 80% de las búsquedas locales son desde el móvil. Diseñamos para eso primero.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-num">04</div>
+      <h3>Entrega en 1 a 3 días</h3>
+      <p>Sin esperas interminables. Tu negocio aparece en internet en cuestión de días, no semanas.</p>
+    </div>
+  </div>
+</section>
+
 <!-- PROCESO -->
-<section class="section section-darker" id="proceso">
+<section class="section" id="proceso">
   <div class="fi">
     <div class="label">Cómo trabajamos</div>
-    <h2>De la llamada<br>a tu web <em>en vivo.</em></h2>
-    <p class="section-desc">Sin tecnicismos. Sin complicaciones. Nos ocupamos de absolutamente todo.</p>
+    <h2>Del primer contacto<br><em>a tu web en vivo.</em></h2>
+    <p class="section-desc">Un proceso claro y sin complicaciones. Nos ocupamos de absolutamente todo.</p>
   </div>
   <div class="pasos fi">
     <div class="paso">
       <div class="paso-n">01</div>
       <div class="paso-body">
         <h3>Hablamos</h3>
-        <p>Una llamada de 20 minutos para conocer tu negocio, tus servicios y lo que necesitas comunicar.</p>
+        <p>Una llamada de 20 minutos para conocer tu negocio, tus servicios y lo que necesitas comunicar a tus clientes.</p>
       </div>
     </div>
     <div class="paso">
       <div class="paso-n">02</div>
       <div class="paso-body">
         <h3>Diseñamos</h3>
-        <p>Creamos tu web con tus colores, tu logo y textos pensados para atraer clientes reales.</p>
+        <p>Creamos tu web con tu identidad, tus colores y textos pensados para convertir visitas en clientes reales.</p>
       </div>
     </div>
     <div class="paso">
       <div class="paso-n">03</div>
       <div class="paso-body">
-        <h3>Revisas</h3>
-        <p>Te mostramos la web antes de publicarla. Hacemos los ajustes que necesites hasta que quedes satisfecho.</p>
+        <h3>Revisas y apruebas</h3>
+        <p>Te mostramos la web antes de publicarla. Hacemos todos los ajustes que necesites hasta que estés satisfecho.</p>
       </div>
     </div>
     <div class="paso">
       <div class="paso-n">04</div>
       <div class="paso-body">
         <h3>Publicamos</h3>
-        <p>Con tu dominio propio y hosting incluido. Tu negocio aparece en internet desde hoy.</p>
+        <p>Con tu dominio propio y hosting incluido. Tu negocio aparece en internet desde ese mismo día.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PORTFOLIO -->
-<section class="section section-dark" id="portfolio">
+<section class="section section-alt" id="portfolio">
   <div class="fi">
     <div class="label">Ejemplos reales</div>
     <h2>Webs que<br><em>hemos creado.</em></h2>
-    <p class="section-desc">Pulsa en cualquier ejemplo para ver la web completa funcionando en tu móvil.</p>
+    <p class="section-desc">Pulsa en cualquier ejemplo para ver la web completa funcionando en tu dispositivo.</p>
   </div>
-  <div class="portfolio-grid fi">
-
-    <a href="https://demo-fontanero-garcia.netlify.app" target="_blank" class="portfolio-item">
-      <div class="port-color c1"></div>
+  <div class="port-grid fi">
+    <a href="https://demo-fontanero-garcia.netlify.app" target="_blank" class="port-item">
+      <div class="port-accent c1"></div>
       <div class="port-info">
         <div class="port-tag">Fontanería</div>
         <h3>Fontanería García</h3>
         <p>Urgencias 24h, servicios y contacto directo</p>
-        <span class="port-status live">● Ver demo</span>
+        <span class="port-status live">● En vivo</span>
       </div>
-      <div class="port-arrow">›</div>
+      <span class="port-arrow">›</span>
     </a>
-
-    <a href="#" class="portfolio-item">
-      <div class="port-color c2"></div>
+    <a href="https://fanciful-gumption-2b564b.netlify.app" target="_blank" class="port-item">
+      <div class="port-accent c2"></div>
       <div class="port-info">
         <div class="port-tag">Restaurante</div>
-        <h3>Restaurante El Rincón</h3>
-        <p>Carta digital, reservas y galería</p>
-        <span class="port-status soon">Próximamente</span>
+        <h3>El Rincón</h3>
+        <p>Carta digital, reservas y menú del día</p>
+        <span class="port-status live">● En vivo</span>
       </div>
-      <div class="port-arrow">›</div>
+      <span class="port-arrow">›</span>
     </a>
-
-    <a href="#" class="portfolio-item">
-      <div class="port-color c3"></div>
+    <a href="https://luxury-youtiao-88a6e5.netlify.app" target="_blank" class="port-item">
+      <div class="port-accent c3"></div>
       <div class="port-info">
         <div class="port-tag">Peluquería</div>
-        <h3>Peluquería Estilo</h3>
-        <p>Galería, servicios y cita online</p>
-        <span class="port-status soon">Próximamente</span>
+        <h3>Estudio Elisa</h3>
+        <p>Servicios, cita online y galería</p>
+        <span class="port-status live">● En vivo</span>
       </div>
-      <div class="port-arrow">›</div>
+      <span class="port-arrow">›</span>
     </a>
-
-    <a href="#" class="portfolio-item">
-      <div class="port-color c4"></div>
+    <a href="https://stunning-rugelach-1112a2.netlify.app" target="_blank" class="port-item">
+      <div class="port-accent c4"></div>
       <div class="port-info">
-        <div class="port-tag">Fisioterapia</div>
-        <h3>Clínica Salud Total</h3>
-        <p>Especialidades, equipo y cita previa</p>
-        <span class="port-status soon">Próximamente</span>
+        <div class="port-tag">Taller mecánico</div>
+        <h3>Taller Rueda</h3>
+        <p>Servicios, cita previa y diagnosis</p>
+        <span class="port-status live">● En vivo</span>
       </div>
-      <div class="port-arrow">›</div>
+      <span class="port-arrow">›</span>
     </a>
-
   </div>
 </section>
 
 <!-- PRECIOS -->
-<section class="section section-darker" id="precios">
+<section class="section" id="precios">
   <div class="fi">
     <div class="label">Inversión</div>
-    <h2>Precios <em>claros.</em><br>Sin sorpresas.</h2>
-    <p class="section-desc">Todo incluido desde el primer día. Sin cuotas mensuales ocultas.</p>
+    <h2>Precios <em>claros.</em><br>Sin letra pequeña.</h2>
+    <p class="section-desc">Todo incluido desde el primer día. Sin sorpresas ni cuotas mensuales ocultas.</p>
   </div>
   <div class="precios-grid fi">
-
     <div class="precio-card">
       <div class="precio-plan">Esencial</div>
       <div class="precio-num">290€</div>
@@ -663,13 +612,10 @@ footer p{font-size:0.72rem;color:rgba(255,255,255,0.18);letter-spacing:0.5px}
         <li>Formulario de contacto</li>
         <li>Botón WhatsApp directo</li>
       </ul>
-      <button class="btn-precio" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
-        Solicitar información
-      </button>
+      <button class="btn-precio" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar información</button>
     </div>
-
-    <div class="precio-card featured">
-      <div class="feat-badge">Más elegido</div>
+    <div class="precio-card feat">
+      <div class="precio-badge">Más elegido</div>
       <div class="precio-plan">Completo</div>
       <div class="precio-num">390€</div>
       <div class="precio-nota">pago único · todo incluido</div>
@@ -682,36 +628,47 @@ footer p{font-size:0.72rem;color:rgba(255,255,255,0.18);letter-spacing:0.5px}
         <li>Botón WhatsApp directo</li>
         <li>Formulario de contacto</li>
       </ul>
-      <button class="btn-precio-dark" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
-        Solicitar información
-      </button>
+      <button class="btn-precio-inv" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar información</button>
     </div>
-
   </div>
 </section>
 
 <!-- CONTACTO -->
-<section class="section section-dark" id="contacto">
-  <div class="contacto-inner fi">
-    <div class="label">Contacto</div>
-    <h2>¿Hablamos<br><em>hoy?</em></h2>
-    <p class="contacto-desc">Sin compromiso. Te explicamos qué necesitas y te damos presupuesto el mismo día.</p>
-    <div class="contacto-btns">
-      <a href="https://wa.me/34699588341?text=Hola,%20me%20interesa%20una%20página%20web%20para%20mi%20negocio" class="btn-wa-grande" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp · 699 588 341
-      </a>
-      <a href="mailto:ivanlp2026@gmail.com" class="btn-email-grande">
-        ✉ ivanlp2026@gmail.com
-      </a>
+<section class="section section-alt" id="contacto">
+  <div class="contacto-box fi">
+    <div class="contacto-inner">
+      <div>
+        <div class="label">Contacto</div>
+        <h2>¿Hablamos<br><em>hoy?</em></h2>
+        <p class="contacto-desc">Sin compromiso. Te explicamos qué necesitas y te damos presupuesto el mismo día. Respuesta garantizada en menos de 2 horas.</p>
+      </div>
+      <div class="contacto-btns">
+        <a href="https://wa.me/34699588341?text=Hola,%20me%20interesa%20una%20página%20web%20para%20mi%20negocio" class="btn-wa" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp · 699 588 341
+        </a>
+        <a href="mailto:ivanlp2026@gmail.com" class="btn-email">
+          ✉ ivanlp2026@gmail.com
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Vitrina<em>Web</em></div>
-  <p>© 2026 VitrinaWeb · Páginas web para negocios locales</p>
+  <div class="nav-logo">
+    <svg class="nav-logo-mark" viewBox="0 0 40 40" fill="none">
+      <circle cx="22" cy="20" r="10" stroke="#C4962A" stroke-width="1"/>
+      <line x1="8" y1="16" x2="22" y2="24" stroke="#C4962A" stroke-width="1" stroke-linecap="round"/>
+      <line x1="8" y1="21" x2="22" y2="18" stroke="#C4962A" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="nav-logo-v" style="font-size:.9rem;color:rgba(255,255,255,.4)">Vitrina</span>
+      <span class="nav-logo-d">Design</span>
+    </div>
+  </div>
+  <p>© 2026 Vitrina Design · Diseño web para negocios locales · España</p>
 </footer>
 
 <!-- WA FLOAT -->
@@ -720,26 +677,21 @@ footer p{font-size:0.72rem;color:rgba(255,255,255,0.18);letter-spacing:0.5px}
 </a>
 
 <script>
-// Cursor personalizado
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursorRing');
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 document.addEventListener('mousemove',e=>{
-  cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';
-  setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'},80);
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  setTimeout(()=>{curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px'},80);
 });
 document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(0.5)'});
-  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)'});
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';curR.style.transform='translate(-50%,-50%) scale(0.4)'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='6px';cur.style.height='6px';curR.style.transform='translate(-50%,-50%) scale(1)'});
 });
-
 // Nav scroll
 const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
-
-// Fade in
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')});
-},{threshold:0.08});
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+// Fade
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')})},{threshold:0.08});
 document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
 </script>
 </body>
