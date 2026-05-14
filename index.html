@@ -30,12 +30,12 @@ body{
   cursor:none;
 }
 a{text-decoration:none;color:inherit}
-
+ 
 /* CURSOR */
 .cur{width:6px;height:6px;background:var(--oro);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 .cur-r{width:32px;height:32px;border:1px solid rgba(196,150,42,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease-out}
 body a:hover~.cur,body button:hover~.cur{width:12px;height:12px}
-
+ 
 /* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
@@ -49,7 +49,7 @@ nav.scrolled{
   padding:16px 7%;
   border-bottom:1px solid var(--borde);
 }
-
+ 
 /* LOGO SVG inline */
 .nav-logo{display:flex;align-items:center;gap:10px}
 .nav-logo-mark{width:28px;height:28px}
@@ -63,7 +63,7 @@ nav.scrolled{
   color:rgba(255,255,255,0.4);letter-spacing:4px;text-transform:uppercase;
   margin-top:1px;
 }
-
+ 
 .nav-links{display:none}
 .nav-cta{
   font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:500;
@@ -72,7 +72,7 @@ nav.scrolled{
   padding:10px 24px;transition:all .3s;background:transparent;cursor:pointer;
 }
 .nav-cta:hover{background:var(--oro);color:var(--negro)}
-
+ 
 /* HERO */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;
@@ -99,9 +99,9 @@ nav.scrolled{
   width:55vw;max-width:480px;opacity:0.03;
   pointer-events:none;
 }
-
+ 
 .hero-content{position:relative;z-index:2}
-
+ 
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:14px;
   font-size:0.6rem;font-weight:500;letter-spacing:5px;text-transform:uppercase;
@@ -110,7 +110,7 @@ nav.scrolled{
 }
 .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--oro);opacity:0.6}
 .hero-eyebrow::after{content:'';display:block;width:16px;height:1px;background:var(--oro);opacity:0.3}
-
+ 
 .hero h1{
   font-family:'Cormorant',serif;
   font-size:clamp(3.2rem,10vw,7.5rem);
@@ -126,7 +126,7 @@ nav.scrolled{
   -webkit-text-stroke:1px rgba(255,255,255,0.2);
   font-style:italic;
 }
-
+ 
 .hero-desc{
   font-size:0.85rem;font-weight:300;
   color:var(--suave);line-height:2;
@@ -134,7 +134,7 @@ nav.scrolled{
   letter-spacing:0.3px;
   opacity:0;animation:fadeUp .8s .6s forwards;
 }
-
+ 
 .hero-ctas{
   display:flex;flex-direction:column;gap:14px;
   opacity:0;animation:fadeUp .8s .8s forwards;
@@ -160,7 +160,7 @@ nav.scrolled{
 .btn-outline:hover{color:var(--blanco);border-color:rgba(255,255,255,0.25)}
 .btn-outline::before{content:'';display:block;width:20px;height:1px;background:currentColor;transition:width .3s}
 .btn-outline:hover::before{width:36px}
-
+ 
 /* STATS */
 .stats{
   display:grid;grid-template-columns:repeat(3,1fr);
@@ -179,11 +179,11 @@ nav.scrolled{
   color:var(--oro);line-height:1;margin-bottom:6px;display:block;
 }
 .stat-label{font-size:0.6rem;font-weight:400;color:var(--suave);letter-spacing:2.5px;text-transform:uppercase}
-
+ 
 /* SECCIONES */
 .section{padding:100px 7%}
 .section-alt{background:var(--negro2)}
-
+ 
 .label{
   font-family:'Cormorant',serif;
   font-size:0.68rem;font-weight:400;letter-spacing:4px;text-transform:uppercase;
@@ -191,7 +191,7 @@ nav.scrolled{
   display:flex;align-items:center;gap:12px;
 }
 .label::before{content:'';display:block;width:24px;height:1px;background:var(--oro);flex-shrink:0}
-
+ 
 h2{
   font-family:'Cormorant',serif;
   font-size:clamp(2.2rem,5vw,3.8rem);font-weight:300;
@@ -202,7 +202,7 @@ h2 em{color:var(--oro2);font-style:italic}
   font-size:0.83rem;font-weight:300;color:var(--suave);
   line-height:2;max-width:480px;margin-bottom:56px;letter-spacing:0.2px;
 }
-
+ 
 /* FEATURES */
 .features{
   display:grid;grid-template-columns:1fr 1fr;
@@ -223,7 +223,7 @@ h2 em{color:var(--oro2);font-style:italic}
   color:var(--blanco);margin-bottom:8px;letter-spacing:0.3px;
 }
 .feature p{font-size:0.78rem;font-weight:300;color:var(--suave);line-height:1.85}
-
+ 
 /* PROCESO */
 .pasos{display:flex;flex-direction:column}
 .paso{
@@ -247,7 +247,7 @@ h2 em{color:var(--oro2);font-style:italic}
   color:var(--blanco);margin-bottom:8px;letter-spacing:0.5px;
 }
 .paso-body p{font-size:0.8rem;font-weight:300;color:var(--suave);line-height:1.9}
-
+ 
 /* PORTFOLIO */
 .port-grid{display:flex;flex-direction:column;gap:1px;background:var(--borde2)}
 .port-item{
@@ -263,6 +263,8 @@ h2 em{color:var(--oro2);font-style:italic}
 .port-accent.c2{background:linear-gradient(180deg,#3D1200,#8B3010)}
 .port-accent.c3{background:linear-gradient(180deg,#2D1B3D,#7B4FA0)}
 .port-accent.c4{background:linear-gradient(180deg,#0A1A0A,#1A5A1A)}
+.port-accent.c5{background:linear-gradient(180deg,#1A0A00,#E07820)}
+.port-accent.c6{background:linear-gradient(180deg,#0A001A,#C0392B)}
 .port-info{flex:1}
 .port-tag{font-size:0.58rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--oro);margin-bottom:5px}
 .port-info h3{font-family:'Cormorant',serif;font-size:1.1rem;font-weight:400;color:var(--blanco);margin-bottom:4px}
@@ -274,7 +276,7 @@ h2 em{color:var(--oro2);font-style:italic}
 .port-status.live{color:#4ADE80;border:1px solid rgba(74,222,128,0.2);background:rgba(74,222,128,0.05)}
 .port-status.soon{color:var(--oro);border:1px solid var(--borde);background:rgba(196,150,42,0.05)}
 .port-arrow{color:rgba(255,255,255,0.1);font-size:1.5rem;transition:all .3s;flex-shrink:0}
-
+ 
 /* PRECIOS */
 .precios-grid{display:flex;flex-direction:column;gap:1px;background:var(--borde2)}
 .precio-card{
@@ -320,7 +322,7 @@ h2 em{color:var(--oro2);font-style:italic}
   cursor:pointer;width:100%;font-family:'Montserrat',sans-serif;transition:all .3s;
 }
 .btn-precio-inv:hover{background:var(--negro2)}
-
+ 
 /* CONTACTO */
 .contacto-box{
   border:1px solid var(--borde);padding:60px 7%;
@@ -352,7 +354,7 @@ h2 em{color:var(--oro2);font-style:italic}
   transition:all .3s;font-family:'Montserrat',sans-serif;
 }
 .btn-email:hover{color:var(--blanco);border-color:rgba(255,255,255,0.2)}
-
+ 
 /* FOOTER */
 footer{
   padding:36px 7%;
@@ -361,7 +363,7 @@ footer{
   align-items:center;text-align:center;
 }
 footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-spacing:1px}
-
+ 
 /* WA FLOAT */
 .wa-float{
   position:fixed;bottom:28px;right:24px;z-index:400;
@@ -370,7 +372,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
   box-shadow:0 4px 24px rgba(34,197,94,0.4);transition:transform .2s,box-shadow .2s;
 }
 .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(34,197,94,0.5)}
-
+ 
 /* ANIM */
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 .fi{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
@@ -378,7 +380,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
 .fi.d1{transition-delay:.1s}
 .fi.d2{transition-delay:.2s}
 .fi.d3{transition-delay:.3s}
-
+ 
 /* DESKTOP */
 @media(min-width:768px){
   .nav-links{
@@ -393,10 +395,10 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
   .precio-card{flex:1}
   .contacto-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
   .contacto-btns{max-width:280px}
-  .port-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+  .port-grid{display:grid;grid-template-columns:repeat(3,1fr)}
   footer{flex-direction:row;justify-content:space-between}
 }
-
+ 
 @media(min-width:1024px){
   nav{padding:28px 8%}
   nav.scrolled{padding:18px 8%}
@@ -407,11 +409,11 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
 </style>
 </head>
 <body>
-
+ 
 <!-- CURSOR -->
 <div class="cur" id="cur"></div>
 <div class="cur-r" id="curR"></div>
-
+ 
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">
@@ -433,7 +435,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
   </div>
   <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Contactar</button>
 </nav>
-
+ 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
@@ -444,7 +446,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
     <line x1="30" y1="80" x2="120" y2="120" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
     <line x1="30" y1="108" x2="120" y2="88" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
   </svg>
-
+ 
   <div class="hero-content">
     <div class="hero-eyebrow">Diseño web · España</div>
     <h1>
@@ -463,14 +465,14 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
     </div>
   </div>
 </section>
-
+ 
 <!-- STATS -->
 <div class="stats">
   <div class="stat fi"><span class="stat-num">1 — 3</span><span class="stat-label">días de entrega</span></div>
   <div class="stat fi d1"><span class="stat-num">desde 290€</span><span class="stat-label">precio único</span></div>
   <div class="stat fi d2"><span class="stat-num">+150</span><span class="stat-label">clientes satisfechos</span></div>
 </div>
-
+ 
 <!-- FEATURES -->
 <section class="section section-alt">
   <div class="fi">
@@ -501,7 +503,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
     </div>
   </div>
 </section>
-
+ 
 <!-- PROCESO -->
 <section class="section" id="proceso">
   <div class="fi">
@@ -540,7 +542,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
     </div>
   </div>
 </section>
-
+ 
 <!-- PORTFOLIO -->
 <section class="section section-alt" id="portfolio">
   <div class="fi">
@@ -589,9 +591,29 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
       </div>
       <span class="port-arrow">›</span>
     </a>
+    <a href="https://demo-mecapro-industrial.netlify.app" target="_blank" class="port-item">
+      <div class="port-accent c5"></div>
+      <div class="port-info">
+        <div class="port-tag">Industrial · Mecanizados</div>
+        <h3>MECAPRO</h3>
+        <p>Web multipágina · CNC, soldadura TIG, rectificado</p>
+        <span class="port-status soon">Próximamente</span>
+      </div>
+      <span class="port-arrow">›</span>
+    </a>
+    <a href="https://demo-autoparts-pro.netlify.app" target="_blank" class="port-item">
+      <div class="port-accent c6"></div>
+      <div class="port-info">
+        <div class="port-tag">E-commerce · Recambios</div>
+        <h3>AutoParts Pro</h3>
+        <p>Tienda online con carrito, checkout y panel admin</p>
+        <span class="port-status soon">Próximamente</span>
+      </div>
+      <span class="port-arrow">›</span>
+    </a>
   </div>
 </section>
-
+ 
 <!-- PRECIOS -->
 <section class="section" id="precios">
   <div class="fi">
@@ -632,7 +654,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACTO -->
 <section class="section section-alt" id="contacto">
   <div class="contacto-box fi">
@@ -654,7 +676,7 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
     </div>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="nav-logo">
@@ -670,12 +692,12 @@ footer p{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.18);letter-s
   </div>
   <p>© 2026 Vitrina Design · Diseño web para negocios locales · España</p>
 </footer>
-
+ 
 <!-- WA FLOAT -->
 <a href="https://wa.me/34699588341?text=Hola,%20me%20interesa%20una%20página%20web%20para%20mi%20negocio" target="_blank" class="wa-float">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-
+ 
 <script>
 // Cursor
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
