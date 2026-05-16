@@ -16,6 +16,45 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [form, setForm] = useState({ name: "", email: "", project: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    setError("");
+    try {
+      const planLabel: Record<string, string> = {
+        basico: "Plan Básico — 290€",
+        advanced: "Plan Advanced — 390€",
+        duda: "Solo tiene una duda",
+      };
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "145a7aea-db1c-434a-b73c-94a4c3c723ef",
+          subject: `Nuevo contacto Vitrina Design — ${planLabel[form.project] || "Sin plan"}`,
+          from_name: "Vitrina Design",
+          name: form.name,
+          email: form.email,
+          interesado_en: planLabel[form.project] || "No especificado",
+          mensaje: form.message,
+          botcheck: "",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSent(true);
+      } else {
+        setError(data.message || "No se pudo enviar. Inténtalo de nuevo o escríbenos por WhatsApp.");
+      }
+    } catch {
+      setError("Error de conexión. Inténtalo de nuevo o escríbenos por WhatsApp.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "13px 16px",
@@ -75,7 +114,7 @@ export default function Contact() {
                 <p style={{ color: "#777", lineHeight: 1.6 }}>Te contactamos en menos de 24h.</p>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(160px,100%), 1fr))", gap: "12px" }}>
                   <input type="text" placeholder="Tu nombre" required value={form.name}
                     onChange={e => setForm({ ...form, name: e.target.value })} style={inputStyle}
@@ -101,12 +140,22 @@ export default function Contact() {
                   style={{ ...inputStyle, resize: "none" }}
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(201,169,110,0.4)"}
                   onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"} />
-                <button type="submit" className="btn-gold" style={{
-                  padding: "14px", borderRadius: "10px", border: "none", cursor: "pointer",
+                <button type="submit" disabled={sending} className="btn-gold" style={{
+                  padding: "14px", borderRadius: "10px", border: "none",
+                  cursor: sending ? "not-allowed" : "pointer", opacity: sending ? 0.6 : 1,
                   fontSize: "14px", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
                 }}>
-                  Enviar mensaje <Send size={15} />
+                  {sending ? "Enviando..." : <>Enviar mensaje <Send size={15} /></>}
                 </button>
+                {error && (
+                  <p style={{
+                    color: "#ff6b6b", fontSize: "13px", textAlign: "center",
+                    background: "rgba(255,107,107,0.08)", border: "1px solid rgba(255,107,107,0.2)",
+                    padding: "10px", borderRadius: "8px", marginTop: "4px",
+                  }}>
+                    {error}
+                  </p>
+                )}
               </form>
             )}
           </motion.div>
